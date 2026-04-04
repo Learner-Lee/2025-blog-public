@@ -1,0 +1,8 @@
+{
+  "pages": {},
+  "app": {
+    "[project]/src/app/write/[slug]/page": []
+  },
+  "appUsingSizeAdjust": false,
+  "pagesUsingSizeAdjust": false
+}

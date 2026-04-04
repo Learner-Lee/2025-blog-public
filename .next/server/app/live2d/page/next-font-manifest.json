@@ -1,0 +1,8 @@
+{
+  "pages": {},
+  "app": {
+    "[project]/src/app/live2d/page": []
+  },
+  "appUsingSizeAdjust": false,
+  "pagesUsingSizeAdjust": false
+}

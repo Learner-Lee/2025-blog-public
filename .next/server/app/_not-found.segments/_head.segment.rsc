@@ -1,0 +1,7 @@
+1:"$Sreact.fragment"
+2:I[2429,["/_next/static/chunks/4eff1defabca86bf.js","/_next/static/chunks/3b48eece190f9f32.js","/_next/static/chunks/9d67dd6212a77804.js","/_next/static/chunks/384e55adbfe56a9e.js","/_next/static/chunks/3f1d5d1a37bac239.js"],"ViewportBoundary"]
+4:I[2429,["/_next/static/chunks/4eff1defabca86bf.js","/_next/static/chunks/3b48eece190f9f32.js","/_next/static/chunks/9d67dd6212a77804.js","/_next/static/chunks/384e55adbfe56a9e.js","/_next/static/chunks/3f1d5d1a37bac239.js"],"MetadataBoundary"]
+5:"$Sreact.suspense"
+0:{"buildId":"lSgR7wktgJ_9LC5wddWPq","rsc":["$","$1","h",{"children":[["$","meta",null,{"name":"robots","content":"noindex"}],["$","$L2",null,{"children":"$@3"}],["$","div",null,{"hidden":true,"children":["$","$L4",null,{"children":["$","$5",null,{"name":"Next.Metadata","children":"$@6"}]}]}],null]}],"loading":null,"isPartial":false}
+3:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
+6:[["$","title","0",{"children":"YYsuni"}],["$","meta","1",{"name":"description","content":"YYsuni 的个人博客，记录前端开发、探索、笔记。前端 UI 更新代码仓库。"}],["$","meta","2",{"property":"og:title","content":"YYsuni"}],["$","meta","3",{"property":"og:description","content":"YYsuni 的个人博客，记录前端开发、探索、笔记。前端 UI 更新代码仓库。"}],["$","meta","4",{"name":"twitter:card","content":"summary"}],["$","meta","5",{"name":"twitter:title","content":"YYsuni"}],["$","meta","6",{"name":"twitter:description","content":"YYsuni 的个人博客，记录前端开发、探索、笔记。前端 UI 更新代码仓库。"}]]

@@ -1,0 +1,23 @@
+{
+  "app": {
+    "[project]/src/app/(home)/page": [],
+    "[project]/src/app/_not-found/page": [],
+    "[project]/src/app/about/page": [],
+    "[project]/src/app/blog/[id]/page": [],
+    "[project]/src/app/blog/page": [],
+    "[project]/src/app/bloggers/page": [],
+    "[project]/src/app/clock/page": [],
+    "[project]/src/app/image-toolbox/page": [],
+    "[project]/src/app/live2d/page": [],
+    "[project]/src/app/pictures/page": [],
+    "[project]/src/app/projects/page": [],
+    "[project]/src/app/share/page": [],
+    "[project]/src/app/snippets/page": [],
+    "[project]/src/app/svgs/page": [],
+    "[project]/src/app/write/[slug]/page": [],
+    "[project]/src/app/write/page": []
+  },
+  "appUsingSizeAdjust": false,
+  "pages": {},
+  "pagesUsingSizeAdjust": false
+}

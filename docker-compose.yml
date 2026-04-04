@@ -1,0 +1,15 @@
+services:
+  blog:
+    build: .
+    ports:
+      - "127.0.0.1:3000:3000"
+    volumes:
+      # Blog content (markdown, images) — persisted on host
+      - ./data/blogs:/app/public/blogs
+      # Mutable config/data JSON files — persisted on host
+      - ./data/config:/app/public/data
+      # Uploaded images (avatar, art, background, etc.) — persisted on host
+      - ./data/images:/app/public/images
+    env_file:
+      - .env.local
+    restart: unless-stopped

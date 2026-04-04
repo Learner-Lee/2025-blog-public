@@ -1,0 +1,21 @@
+{
+  "/(home)/page": "/",
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/about/page": "/about",
+  "/blog/[id]/page": "/blog/[id]",
+  "/blog/page": "/blog",
+  "/bloggers/page": "/bloggers",
+  "/clock/page": "/clock",
+  "/image-toolbox/page": "/image-toolbox",
+  "/live2d/page": "/live2d",
+  "/pictures/page": "/pictures",
+  "/projects/page": "/projects",
+  "/rss.xml/route": "/rss.xml",
+  "/share/page": "/share",
+  "/sitemap.xml/route": "/sitemap.xml",
+  "/snippets/page": "/snippets",
+  "/svgs/page": "/svgs",
+  "/write/[slug]/page": "/write/[slug]",
+  "/write/page": "/write"
+}

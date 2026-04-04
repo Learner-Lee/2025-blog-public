@@ -1,0 +1,85 @@
+{
+	"meta": {
+		"title": "Alen's Blog",
+		"description": "Alen's Blog",
+		"username": "Alen"
+	},
+	"theme": {
+		"colorBrand": "#35bfab",
+		"colorPrimary": "#334f52",
+		"colorSecondary": "#7b888e",
+		"colorBrandSecondary": "#1fc9e7",
+		"colorBg": "#eeeeee",
+		"colorBorder": "#ffffff",
+		"colorCard": "#ffffff66",
+		"colorArticle": "#ffffffcc"
+	},
+	"backgroundColors": [
+		"#EDDD62",
+		"#9EE7D1",
+		"#84D68A",
+		"#EDDD62",
+		"#88E6E5",
+		"#a7f3d0"
+	],
+	"artImages": [
+		{
+			"id": "cat",
+			"url": "/images/art/cat.png"
+		},
+		{
+			"id": "a46372ff45bc5524",
+			"url": "/images/art/a46372ff45bc5524.jpg"
+		}
+	],
+	"currentArtImageId": "a46372ff45bc5524",
+	"backgroundImages": [
+		{
+			"id": "",
+			"url": ""
+		}
+	],
+	"currentBackgroundImageId": "",
+	"socialButtons": [
+		{
+			"id": "email",
+			"type": "email",
+			"value": "lixiangqian2003@gmail.com",
+			"label": "",
+			"order": 1
+		},
+		{
+			"id": "button-1773918917251",
+			"type": "link",
+			"value": "https://blog.csdn.net/Rickest_man?spm=1000.2115.3001.5343",
+			"label": "CSDN",
+			"order": 2
+		},
+		{
+			"id": "button-1773918894941",
+			"type": "bilibili",
+			"value": "https://space.bilibili.com/425504437?spm_id_from=333.1007.0.0",
+			"label": "",
+			"order": 3
+		},
+		{
+			"id": "github",
+			"type": "github",
+			"value": "https://github.com/Learner-Lee",
+			"label": "Github",
+			"order": 4
+		}
+	],
+	"clockShowSeconds": false,
+	"summaryInContent": false,
+	"isCachePem": false,
+	"hideEditButton": false,
+	"enableCategories": true,
+	"currentHatIndex": 3,
+	"hatFlipped": false,
+	"enableChristmas": false,
+	"beian": {
+		"text": "",
+		"link": ""
+	}
+}

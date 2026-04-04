@@ -1,0 +1,21 @@
+{
+  "/(home)/page": "app/(home)/page.js",
+  "/_global-error/page": "app/_global-error/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/about/page": "app/about/page.js",
+  "/blog/[id]/page": "app/blog/[id]/page.js",
+  "/blog/page": "app/blog/page.js",
+  "/bloggers/page": "app/bloggers/page.js",
+  "/clock/page": "app/clock/page.js",
+  "/image-toolbox/page": "app/image-toolbox/page.js",
+  "/live2d/page": "app/live2d/page.js",
+  "/pictures/page": "app/pictures/page.js",
+  "/projects/page": "app/projects/page.js",
+  "/rss.xml/route": "app/rss.xml/route.js",
+  "/share/page": "app/share/page.js",
+  "/sitemap.xml/route": "app/sitemap.xml/route.js",
+  "/snippets/page": "app/snippets/page.js",
+  "/svgs/page": "app/svgs/page.js",
+  "/write/[slug]/page": "app/write/[slug]/page.js",
+  "/write/page": "app/write/page.js"
+}

@@ -1,0 +1,8 @@
+{
+  "pages": {},
+  "app": {
+    "[project]/src/app/blog/page": []
+  },
+  "appUsingSizeAdjust": false,
+  "pagesUsingSizeAdjust": false
+}

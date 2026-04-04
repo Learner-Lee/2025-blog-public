@@ -1,0 +1,71 @@
+[
+	{
+		"name": "Classroom-Attention-Detection-System Private",
+		"year": 2026,
+		"image": "/images/project/d4d015fe8eb60a0e.webp",
+		"url": "https://github.com/Learner-Lee/Classroom-Attention-Detection-System",
+		"description": "1",
+		"tags": [
+			"computer-vision"
+		],
+		"github": "https://github.com/Learner-Lee/Classroom-Attention-Detection-System"
+	},
+	{
+		"name": "Classroom-Attention-Detection-System-Demo",
+		"year": 2026,
+		"image": "/images/project/d4d015fe8eb60a0e.webp",
+		"url": "https://github.com/Learner-Lee/Classroom-Attention-Detection-System-Demo",
+		"description": "1",
+		"tags": [
+			"computer-vision"
+		],
+		"github": "https://github.com/Learner-Lee/Classroom-Attention-Detection-System-Demo"
+	},
+	{
+		"name": "Amazon-review",
+		"year": 2026,
+		"image": "/images/project/d4d015fe8eb60a0e.webp",
+		"url": "https://github.com/Learner-Lee/Amazon-review",
+		"description": "1",
+		"tags": [
+			"python"
+		],
+		"github": "https://github.com/Learner-Lee/Amazon-review"
+	},
+	{
+		"name": "Bicycle-Rental-Volume-Forecasting-and-Analysis Public",
+		"year": 2026,
+		"image": "/images/project/d4d015fe8eb60a0e.webp",
+		"url": "https://github.com/Learner-Lee/Bicycle-Rental-Volume-Forecasting-and-Analysis",
+		"description": "基于 UCI 自行车租赁数据集，通过交互式可视化与五种机器学习算法，带你从数据探索到预测建模，掌握数据挖掘核心方法论。",
+		"tags": [
+			"Data Mining"
+		],
+		"github": "https://github.com/Learner-Lee/Bicycle-Rental-Volume-Forecasting-and-Analysis",
+		"npm": "1"
+	},
+	{
+		"name": "DeepVoice",
+		"year": 2026,
+		"image": "",
+		"url": "https://github.com/Learner-Lee/DeepVoice",
+		"description": " DeepVoice 是一个面向中学生的交互式教学平台，通过可视化 Web 界面，带你用 6 种机器学习算法亲手探索 AI 如何识别真假声音。",
+		"tags": [
+			"ML"
+		],
+		"github": "https://github.com/Learner-Lee/DeepVoice",
+		"npm": "https://github.com/Learner-Lee/DeepVoice"
+	},
+	{
+		"name": "Bicycle-Rental-Volume-Forecasting-and-Analysis-Version-2.0",
+		"year": 2026,
+		"image": "/images/project/056d09e9e49b1470.jpg",
+		"url": "https://github.com/Learner-Lee/Bicycle-Rental-Volume-Forecasting-and-Analysis-Version-2.0",
+		"description": "1",
+		"tags": [
+			"ML"
+		],
+		"github": "https://github.com/Learner-Lee/Bicycle-Rental-Volume-Forecasting-and-Analysis-Version-2.0",
+		"npm": "https://github.com/Learner-Lee/Bicycle-Rental-Volume-Forecasting-and-Analysis-Version-2.0"
+	}
+]
