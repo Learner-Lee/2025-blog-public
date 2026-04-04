@@ -5,6 +5,7 @@ __pycache__/
 .venv/
 venv/
 *.log
+*.key
 .DS_Store
 node_modules/
 dist/
