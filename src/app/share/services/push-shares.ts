@@ -38,6 +38,12 @@ export async function pushShares(params: PushSharesParams): Promise<void> {
 		}
 	}
 
+	// Strip any blob: URLs that weren't replaced (e.g. upload failed)
+	updatedShares = updatedShares.map(s => ({
+		...s,
+		logo: s.logo?.startsWith('blob:') ? '' : s.logo
+	}))
+
 	await writeTextFile('public/data/shares.json', JSON.stringify(updatedShares, null, '\t'))
 	toast.success('发布成功！')
 }

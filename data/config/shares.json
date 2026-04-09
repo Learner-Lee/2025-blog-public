@@ -1,7 +1,7 @@
 [
 	{
 		"name": "LeetCode 热题 HOT 100",
-		"logo": "blob:https://web.alenli.cn/db38af3c-4195-4025-8160-d24c21ec87ab",
+		"logo": "",
 		"url": "https://leetcode.cn/problem-list/2cktkvj/",
 		"description": "可以保持Python古法编程能力",
 		"tags": [
@@ -11,7 +11,7 @@
 	},
 	{
 		"name": "SQL之母",
-		"logo": "blob:https://web.alenli.cn/e32a3427-f6ae-4e3f-bb3a-0dbb2aa37a88",
+		"logo": "",
 		"url": "https://sqlmother.yupi.icu/#/levels",
 		"description": "一个超棒的SQL学习网站",
 		"tags": [
@@ -21,7 +21,7 @@
 	},
 	{
 		"name": "高频 SQL 50 题（基础版）",
-		"logo": "blob:https://web.alenli.cn/fc678236-8e02-40ff-bbb0-8314431bfc64",
+		"logo": "",
 		"url": "https://leetcode.cn/studyplan/sql-free-50/",
 		"description": "可以保持SQL古法编程能力",
 		"tags": [

@@ -94,12 +94,20 @@ export function ShareCard({ share, isEditMode = false, onUpdate, onDelete }: Sha
 			<div>
 				<div className='mb-4 flex items-center gap-4'>
 					<div className='group relative'>
-						<img
-							src={localShare.logo}
-							alt={localShare.name}
-							className={cn('h-16 w-16 rounded-xl object-cover', canEdit && 'cursor-pointer')}
-							onClick={() => canEdit && setShowLogoDialog(true)}
-						/>
+						{localShare.logo ? (
+							<img
+								src={localShare.logo}
+								alt={localShare.name}
+								className={cn('h-16 w-16 rounded-xl object-cover', canEdit && 'cursor-pointer')}
+								onClick={() => canEdit && setShowLogoDialog(true)}
+							/>
+						) : (
+							<div
+								className={cn('h-16 w-16 rounded-xl bg-neutral-100 border flex items-center justify-center text-neutral-400 text-xs', canEdit && 'cursor-pointer')}
+								onClick={() => canEdit && setShowLogoDialog(true)}>
+								无图
+							</div>
+						)}
 						{canEdit && (
 							<div className='ev pointer-events-none absolute inset-0 flex items-center justify-center rounded-xl bg-black/40 opacity-0 transition-opacity group-hover:opacity-100'>
 								<span className='text-xs text-white'>更换</span>
