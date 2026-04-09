@@ -47,8 +47,8 @@
 	{
 		"name": "DeepVoice",
 		"year": 2026,
-		"image": "",
-		"url": "https://github.com/Learner-Lee/DeepVoice",
+		"image": "/images/project/056d09e9e49b1470.jpg",
+		"url": "https://web.alenli.cn:8443/",
 		"description": " DeepVoice 是一个面向中学生的交互式教学平台，通过可视化 Web 界面，带你用 6 种机器学习算法亲手探索 AI 如何识别真假声音。",
 		"tags": [
 			"ML"
