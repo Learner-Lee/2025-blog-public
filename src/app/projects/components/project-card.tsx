@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion } from 'motion/react'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
@@ -31,6 +31,13 @@ export function ProjectCard({ project, isEditMode = false, onUpdate, onDelete }:
 	const [localProject, setLocalProject] = useState(project)
 	const [showImageDialog, setShowImageDialog] = useState(false)
 	const [imageItem, setImageItem] = useState<ImageItem | null>(null)
+
+	useEffect(() => {
+		if (!isEditing) {
+			setLocalProject(project)
+			setImageItem(null)
+		}
+	}, [project])
 
 	const handleFieldChange = (field: keyof Project, value: any) => {
 		const updated = { ...localProject, [field]: value }

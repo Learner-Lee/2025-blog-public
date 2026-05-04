@@ -2,9 +2,9 @@
 	{
 		"name": "Classroom-Attention-Detection-System Private",
 		"year": 2026,
-		"image": "/images/project/d4d015fe8eb60a0e.webp",
+		"image": "/images/project/d33cfdd47f82a179.webp",
 		"url": "https://github.com/Learner-Lee/Classroom-Attention-Detection-System",
-		"description": "1",
+		"description": "课堂注意力检测实验",
 		"tags": [
 			"computer-vision"
 		],
@@ -13,9 +13,9 @@
 	{
 		"name": "Classroom-Attention-Detection-System-Demo",
 		"year": 2026,
-		"image": "/images/project/d4d015fe8eb60a0e.webp",
+		"image": "/images/project/d33cfdd47f82a179.webp",
 		"url": "https://github.com/Learner-Lee/Classroom-Attention-Detection-System-Demo",
-		"description": "1",
+		"description": "课堂注意力检测Demo",
 		"tags": [
 			"computer-vision"
 		],
@@ -24,9 +24,9 @@
 	{
 		"name": "Amazon-review",
 		"year": 2026,
-		"image": "/images/project/d4d015fe8eb60a0e.webp",
+		"image": "/images/project/babb4585dd21f292.jpg",
 		"url": "https://github.com/Learner-Lee/Amazon-review",
-		"description": "1",
+		"description": "一个可以用来获取评论的代码",
 		"tags": [
 			"python"
 		],
@@ -35,7 +35,7 @@
 	{
 		"name": "Bicycle-Rental-Volume-Forecasting-and-Analysis Public",
 		"year": 2026,
-		"image": "/images/project/d4d015fe8eb60a0e.webp",
+		"image": "/images/project/c34c193ee4cb76ee.webp",
 		"url": "https://github.com/Learner-Lee/Bicycle-Rental-Volume-Forecasting-and-Analysis",
 		"description": "基于 UCI 自行车租赁数据集，通过交互式可视化与五种机器学习算法，带你从数据探索到预测建模，掌握数据挖掘核心方法论。",
 		"tags": [
@@ -47,7 +47,7 @@
 	{
 		"name": "DeepVoice",
 		"year": 2026,
-		"image": "/images/project/056d09e9e49b1470.jpg",
+		"image": "/images/project/88b365fed63c91bc.png",
 		"url": "https://web.alenli.cn:8443/",
 		"description": " DeepVoice 是一个面向中学生的交互式教学平台，通过可视化 Web 界面，带你用 6 种机器学习算法亲手探索 AI 如何识别真假声音。",
 		"tags": [
@@ -59,13 +59,76 @@
 	{
 		"name": "Bicycle-Rental-Volume-Forecasting-and-Analysis-Version-2.0",
 		"year": 2026,
-		"image": "/images/project/056d09e9e49b1470.jpg",
+		"image": "/images/project/c34c193ee4cb76ee.webp",
 		"url": "https://github.com/Learner-Lee/Bicycle-Rental-Volume-Forecasting-and-Analysis-Version-2.0",
-		"description": "1",
+		"description": "基于 UCI 自行车租赁数据集，通过交互式可视化与五种机器学习算法，带你从数据探索到预测建模，掌握数据挖掘核心方法论。",
 		"tags": [
-			"ML"
+			"Data Mining"
 		],
 		"github": "https://github.com/Learner-Lee/Bicycle-Rental-Volume-Forecasting-and-Analysis-Version-2.0",
 		"npm": "https://github.com/Learner-Lee/Bicycle-Rental-Volume-Forecasting-and-Analysis-Version-2.0"
+	},
+	{
+		"name": "New-Energy-Vehicle-Weibo-User-Sentiment-Analysis-System",
+		"year": 2026,
+		"image": "/images/project/1fb8797a06904368.jpg",
+		"url": "https://web.alenli.cn:2053/",
+		"description": "毕业论文_基于数据仓库的新能源汽车微博用户情感分析系统设计与实现",
+		"tags": [
+			"Hadoop",
+			"Data Analysis"
+		],
+		"github": "https://github.com/Learner-Lee/New-Energy-Vehicle-Weibo-User-Sentiment-Analysis-System",
+		"npm": "https://github.com/Learner-Lee/New-Energy-Vehicle-Weibo-User-Sentiment-Analysis-System"
+	},
+	{
+		"name": "CleanRalph",
+		"year": 2026,
+		"image": "/images/project/596e6c5a555f038d.webp",
+		"url": "https://github.com/Learner-Lee/CleanRalph",
+		"description": "CleanRalph",
+		"tags": [
+			"Ralph",
+			"AI"
+		],
+		"github": "https://github.com/Learner-Lee/CleanRalph",
+		"npm": "https://github.com/Learner-Lee/CleanRalph"
+	},
+	{
+		"name": "ralph-practice",
+		"year": 2026,
+		"image": "/images/project/596e6c5a555f038d.webp",
+		"url": "https://github.com/Learner-Lee/ralph-practice",
+		"description": "ralph-practice",
+		"tags": [
+			"Ralph",
+			"AI"
+		],
+		"github": "https://github.com/Learner-Lee/ralph-practice",
+		"npm": "https://github.com/Learner-Lee/ralph-practice"
+	},
+	{
+		"name": "Titanic - Machine Learning from Disaster",
+		"year": 2026,
+		"image": "/images/project/1ee53ea1728c9787.png",
+		"url": "https://www.kaggle.com/code/alenli2025/titanic",
+		"description": "泰坦尼克号沉没是历史上最臭名昭著的沉船事件之一。\n1912年4月15日，在处女航中，被广泛认为“永不沉没”的泰坦尼克号撞上冰山后沉没。不幸的是，船上的救生艇数量不足以容纳所有人，导致2224名乘客和船员中1502人遇难。\n虽然生存多少带有一定的运气成分，但似乎有些群体比其他群体更容易生存下来。\n在这个挑战中，我们要求你构建一个预测模型来回答以下问题：“哪些类型的人更有可能生存下来？”该模型使用乘客数据（例如姓名、年龄、性别、社会经济阶层等）。",
+		"tags": [
+			"DA"
+		],
+		"github": "https://github.com/Learner-Lee/Titanic---Machine-Learning-from-Disaster",
+		"npm": "https://github.com/Learner-Lee/Titanic---Machine-Learning-from-Disaster"
+	},
+	{
+		"name": "Harness",
+		"year": 2026,
+		"image": "/images/project/51a4a7354da3581e.png",
+		"url": "https://github.com/Learner-Lee/Harness-guideline",
+		"description": "从零手写一个 AI Agent Harness 的完整学习记录。",
+		"tags": [
+			"Harness",
+			"AI"
+		],
+		"github": "https://github.com/Learner-Lee/Harness-guideline"
 	}
 ]

@@ -10,7 +10,7 @@ export type PushProjectsParams = {
 	imageItems?: Map<string, ImageItem>
 }
 
-export async function pushProjects(params: PushProjectsParams): Promise<void> {
+export async function pushProjects(params: PushProjectsParams): Promise<Project[]> {
 	const { projects, imageItems } = params
 
 	toast.info('正在准备文件...')
@@ -46,4 +46,5 @@ export async function pushProjects(params: PushProjectsParams): Promise<void> {
 
 	await writeTextFile('public/data/projects.json', JSON.stringify(updatedProjects, null, '\t'))
 	toast.success('发布成功！')
+	return updatedProjects
 }

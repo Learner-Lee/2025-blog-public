@@ -1,7 +1,7 @@
 [
 	{
 		"name": "LeetCode 热题 HOT 100",
-		"logo": "",
+		"logo": "/images/share/03700a7836bc30c1.png",
 		"url": "https://leetcode.cn/problem-list/2cktkvj/",
 		"description": "可以保持Python古法编程能力",
 		"tags": [
@@ -11,7 +11,7 @@
 	},
 	{
 		"name": "SQL之母",
-		"logo": "",
+		"logo": "/images/share/76f1f91e07017e04.jpg",
 		"url": "https://sqlmother.yupi.icu/#/levels",
 		"description": "一个超棒的SQL学习网站",
 		"tags": [
@@ -21,12 +21,32 @@
 	},
 	{
 		"name": "高频 SQL 50 题（基础版）",
-		"logo": "",
+		"logo": "/images/share/31fc5b53b37a4c26.png",
 		"url": "https://leetcode.cn/studyplan/sql-free-50/",
 		"description": "可以保持SQL古法编程能力",
 		"tags": [
 			"SQL"
 		],
 		"stars": 3
+	},
+	{
+		"name": "Kaggle",
+		"logo": "",
+		"url": "https://www.kaggle.com/",
+		"description": "数据分析竞赛",
+		"tags": [
+			"DA"
+		],
+		"stars": 5
+	},
+	{
+		"name": "Kaggle 数据集",
+		"logo": "",
+		"url": "https://www.kaggle.com/datasets",
+		"description": "Kaggle 数据集",
+		"tags": [
+			"DataSet"
+		],
+		"stars": 5
 	}
 ]

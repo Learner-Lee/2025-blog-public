@@ -1,21 +1,21 @@
 import { motion } from 'motion/react'
-import { useRef, useState } from 'react'
-import { toast } from 'sonner'
+import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useWriteStore } from '../stores/write-store'
 import { usePreviewStore } from '../stores/preview-store'
 import { usePublish } from '../hooks/use-publish'
 import { PasswordDialog } from '@/components/password-dialog'
 import { useAuthStore } from '@/hooks/use-auth'
+import { ImportMdDialog } from './import-md-dialog'
 
 export function WriteActions() {
-	const { loading, mode, form, loadBlogForEdit, originalSlug, updateForm } = useWriteStore()
+	const { loading, mode, form, originalSlug } = useWriteStore()
 	const { openPreview } = usePreviewStore()
 	const { isAuth, onPublish, onDelete } = usePublish()
 	const { setPrivateKey } = useAuthStore()
 	const [saving, setSaving] = useState(false)
 	const [showPasswordDialog, setShowPasswordDialog] = useState(false)
-	const mdInputRef = useRef<HTMLInputElement>(null)
+	const [showImportDialog, setShowImportDialog] = useState(false)
 	const router = useRouter()
 
 	const handleImportOrPublish = () => {
@@ -50,25 +50,6 @@ export function WriteActions() {
 		}
 	}
 
-	const handleImportMd = () => {
-		mdInputRef.current?.click()
-	}
-
-	const handleMdFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-		const file = e.target.files?.[0]
-		if (!file) return
-
-		try {
-			const text = await file.text()
-			updateForm({ md: text })
-			toast.success('已导入 Markdown 文件')
-		} catch (error) {
-			toast.error('导入失败，请重试')
-		} finally {
-			if (e.currentTarget) e.currentTarget.value = ''
-		}
-	}
-
 	return (
 		<>
 			<PasswordDialog
@@ -76,7 +57,7 @@ export function WriteActions() {
 				onClose={() => setShowPasswordDialog(false)}
 				onConfirm={pwd => { setPrivateKey(pwd); onPublish() }}
 			/>
-			<input ref={mdInputRef} type='file' accept='.md' className='hidden' onChange={handleMdFileChange} />
+			<ImportMdDialog open={showImportDialog} onClose={() => setShowImportDialog(false)} />
 
 			<ul className='absolute top-4 right-6 flex items-center gap-2'>
 				{mode === 'edit' && (
@@ -114,7 +95,7 @@ export function WriteActions() {
 					whileTap={{ scale: 0.95 }}
 					className='bg-card rounded-xl border px-4 py-2 text-sm'
 					disabled={loading}
-					onClick={handleImportMd}>
+					onClick={() => setShowImportDialog(true)}>
 					导入 MD
 				</motion.button>
 				<motion.button

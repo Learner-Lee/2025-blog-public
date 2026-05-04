@@ -1,5 +1,165 @@
 [
   {
+    "slug": "Kernel",
+    "title": "Mac 上拉取 Kaggle Kernel 完整步骤",
+    "tags": [],
+    "date": "2026-05-02T15:29",
+    "summary": "Mac 上拉取 Kaggle Kernel 完整步骤",
+    "hidden": false,
+    "category": ""
+  },
+  {
+    "slug": "sqll",
+    "title": "SQL 查询性能优化学习路线",
+    "tags": [
+      "SQL"
+    ],
+    "date": "2026-04-29T20:42",
+    "summary": "SQL 查询性能优化学习路线",
+    "hidden": false,
+    "category": ""
+  },
+  {
+    "slug": "sqlp",
+    "title": "CC 的学习 prompt：SQL 查询性能优化学习路线",
+    "tags": [
+      "SQL"
+    ],
+    "date": "2026-04-29T20:40",
+    "summary": "Prompt: 帮我系统学习 SQL 查询性能优化（给 Claude Code 的任务书）\n",
+    "hidden": false,
+    "category": ""
+  },
+  {
+    "slug": "psk",
+    "title": "CC 的学习 prompt：Skills",
+    "tags": [
+      "Skills",
+      "AI"
+    ],
+    "date": "2026-04-25T19:41",
+    "summary": "Prompt: 帮我系统学习 Agent Skills（给 Claude Code 的任务书）",
+    "cover": "/blogs/psk/32c24c704198a102.png",
+    "hidden": false,
+    "category": ""
+  },
+  {
+    "slug": "HarnessT",
+    "title": "AI Agent Harness 学习完整对话记录",
+    "tags": [
+      "Harness",
+      "AI"
+    ],
+    "date": "2026-04-25T17:26",
+    "summary": "AI Agent Harness 学习完整对话记录",
+    "cover": "/blogs/HarnessT/51a4a7354da3581e.png",
+    "hidden": false,
+    "category": ""
+  },
+  {
+    "slug": "Harness",
+    "title": "AI Agent Harness 学习路线",
+    "tags": [
+      "Harness",
+      "AI"
+    ],
+    "date": "2026-04-25T17:24",
+    "summary": "AI Agent Harness 学习路线",
+    "cover": "/blogs/Harness/51a4a7354da3581e.png",
+    "hidden": false,
+    "category": ""
+  },
+  {
+    "slug": "ccph",
+    "title": "CC 的学习 prompt：Harness",
+    "tags": [
+      "Harness",
+      "AI"
+    ],
+    "date": "2026-04-22T13:04",
+    "summary": "CC 的学习 prompt：Harness",
+    "cover": "/blogs/ccph/51a4a7354da3581e.png",
+    "hidden": false,
+    "category": ""
+  },
+  {
+    "slug": "ccpr",
+    "title": "CC 的学习 prompt：Ralph Loop ",
+    "tags": [
+      "Ralph",
+      "AI"
+    ],
+    "date": "2026-04-22T13:01",
+    "summary": "CC 的学习 prompt：Ralph Loop ",
+    "cover": "/blogs/ccpr/596e6c5a555f038d.webp",
+    "hidden": false,
+    "category": ""
+  },
+  {
+    "slug": "RalphE",
+    "title": "Ralph Loop 实践",
+    "tags": [
+      "Ralph",
+      "AI"
+    ],
+    "date": "2026-04-19T19:45",
+    "summary": "Ralph Loop 实践",
+    "cover": "/blogs/RalphE/596e6c5a555f038d.webp",
+    "hidden": false,
+    "category": ""
+  },
+  {
+    "slug": "Ralph",
+    "title": "Ralph Loop 学习路线",
+    "tags": [
+      "Ralph",
+      "AI"
+    ],
+    "date": "2026-04-19T17:50",
+    "summary": "Ralph Loop 学习路线\n",
+    "cover": "/blogs/Ralph/596e6c5a555f038d.webp",
+    "hidden": false,
+    "category": ""
+  },
+  {
+    "slug": "rf",
+    "title": "03 - 集成学习 & Random Forest",
+    "tags": [
+      "ML",
+      "RL"
+    ],
+    "date": "2026-04-14T15:30",
+    "summary": "集成学习 & Random Forest",
+    "cover": "/blogs/rf/d2051badedfd4602.png",
+    "hidden": false,
+    "category": ""
+  },
+  {
+    "slug": "lg",
+    "title": "01 - 逻辑回归",
+    "tags": [
+      "ML",
+      "LG"
+    ],
+    "date": "2026-04-14T14:57",
+    "summary": "逻辑回归的使用",
+    "cover": "/blogs/lg/70c4c9e55c91c3a9.png",
+    "hidden": false,
+    "category": ""
+  },
+  {
+    "slug": "ab",
+    "title": "AB Testing",
+    "tags": [
+      "AB Testing"
+    ],
+    "date": "2026-04-14T14:40",
+    "summary": "AB Testing 详细介绍与使用指南",
+    "cover": "/blogs/ab/f5f32eac65cdd92d.png",
+    "hidden": false,
+    "category": ""
+  },
+  {
     "slug": "cf-port",
     "title": "cloudflare-port-guide",
     "tags": [

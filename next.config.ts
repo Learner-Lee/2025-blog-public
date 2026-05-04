@@ -11,7 +11,10 @@ const nextConfig: NextConfig = {
 		ignoreBuildErrors: true
 	},
 	experimental: {
-		scrollRestoration: false
+		scrollRestoration: false,
+		serverActions: {
+			bodySizeLimit: '50mb'
+		}
 	},
 	turbopack: {
 		rules: {
