@@ -1,0 +1,11 @@
+{
+  "title": "Tailscale Docker 容器部署导致服务器间无法互联 — 排查修复指南",
+  "tags": [
+    "Tailscale"
+  ],
+  "date": "2026-07-12T21:17",
+  "summary": "> **记录时间**:2026-07-07 **问题级别**:网络连通性故障(非账号/授权问题) **修复耗时参考**:定位约 10 分钟,单台修复约 3 分钟 **适用场景**:Tailscale 通过 Docker 官方镜像 `tailscale/tailscale` 部署(常见于 NAS、面板类工具一键安装),客户端能连服务器,但服务器之间无法通过 100.x 地址互访。",
+  "cover": "/blogs/Tailscale/3a6fd9e15620f8a5.png",
+  "hidden": false,
+  "category": ""
+}

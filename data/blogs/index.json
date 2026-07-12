@@ -1,32 +1,128 @@
 [
   {
-    "slug": "Kernel",
-    "title": "Mac 上拉取 Kaggle Kernel 完整步骤",
-    "tags": [],
-    "date": "2026-05-02T15:29",
-    "summary": "Mac 上拉取 Kaggle Kernel 完整步骤",
+    "slug": "PG",
+    "title": "建立可远程访问的 PostgreSQL 数据库",
+    "tags": [
+      "PostgreSQL"
+    ],
+    "date": "2026-07-12T21:21",
+    "summary": "建立可远程访问的 PostgreSQL 数据库",
+    "cover": "/blogs/PG/9e6b650d5cd50959.png",
+    "hidden": false,
+    "category": ""
+  },
+  {
+    "slug": "Tailscale",
+    "title": "Tailscale Docker 容器部署导致服务器间无法互联 — 排查修复指南",
+    "tags": [
+      "Tailscale"
+    ],
+    "date": "2026-07-12T21:17",
+    "summary": "> **记录时间**:2026-07-07 **问题级别**:网络连通性故障(非账号/授权问题) **修复耗时参考**:定位约 10 分钟,单台修复约 3 分钟 **适用场景**:Tailscale 通过 Docker 官方镜像 `tailscale/tailscale` 部署(常见于 NAS、面板类工具一键安装),客户端能连服务器,但服务器之间无法通过 100.x 地址互访。",
+    "cover": "/blogs/Tailscale/3a6fd9e15620f8a5.png",
+    "hidden": false,
+    "category": ""
+  },
+  {
+    "slug": "nasads",
+    "title": "NAS 去广告配置指南",
+    "tags": [
+      "NAS"
+    ],
+    "date": "2026-07-12T21:13",
+    "summary": "在自建 NAS 上部署 AdGuard Home / Pi-hole 做全屋 DNS 级去广告，并在 ASUS 路由器配置主备 DNS，避免 NAS 故障时导致全屋断网。",
+    "cover": "/blogs/nasads/b9e4ec773fc7bcec.png",
+    "hidden": false,
+    "category": ""
+  },
+  {
+    "slug": "Ubuntu",
+    "title": "Ubuntu 使用指南",
+    "tags": [
+      "Ubuntu"
+    ],
+    "date": "2026-07-02T15:00",
+    "summary": "Ubuntu 使用指南",
+    "cover": "/blogs/Ubuntu/5d4c71af5306f228.png",
+    "hidden": false,
+    "category": ""
+  },
+  {
+    "slug": "macOS-L",
+    "title": "用 macOS 原生功能替代超级右键付费 App",
+    "tags": [
+      "MacOS"
+    ],
+    "date": "2026-06-29T23:23",
+    "summary": "在不购买第三方 App 的情况下，用苹果自带功能实现「右击打开终端、复制路径、新建文件、用指定软件打开」",
+    "cover": "/blogs/macOS-L/6c0069f12c75e9d0.webp",
+    "hidden": false,
+    "category": ""
+  },
+  {
+    "slug": "codex-plugin",
+    "title": "Claude: codex-plugin-guide",
+    "tags": [
+      "Claude"
+    ],
+    "date": "2026-06-29T10:08",
+    "summary": "在 Claude Code 里用 GPT-5.4 审查 Claude 的代码：Codex 插件使用指南",
+    "cover": "/blogs/codex-plugin/75e80c85890a25e5.webp",
+    "hidden": false,
+    "category": ""
+  },
+  {
+    "slug": "nyc-taxi",
+    "title": "NYC Taxi 大数据平台 · 复习速查手册",
+    "tags": [
+      "大数据",
+      "查询优化"
+    ],
+    "date": "2026-06-04T18:36",
+    "summary": "NYC Taxi 大数据平台 · 复习速查手册",
+    "cover": "/blogs/nyc-taxi/e02a3773c1ea726c.jpg",
     "hidden": false,
     "category": ""
   },
   {
     "slug": "sqll",
     "title": "SQL 查询性能优化学习路线",
-    "tags": [
-      "SQL"
-    ],
-    "date": "2026-04-29T20:42",
+    "tags": [],
+    "date": "2026-05-08T22:26",
     "summary": "SQL 查询性能优化学习路线",
+    "cover": "/blogs/sqll/93450bfe4a15db84.png",
     "hidden": false,
     "category": ""
   },
   {
     "slug": "sqlp",
-    "title": "CC 的学习 prompt：SQL 查询性能优化学习路线",
+    "title": "SQL 查询性能优化 · 实战练习记录",
     "tags": [
       "SQL"
     ],
-    "date": "2026-04-29T20:40",
-    "summary": "Prompt: 帮我系统学习 SQL 查询性能优化（给 Claude Code 的任务书）\n",
+    "date": "2026-05-08T22:23",
+    "summary": "# SQL 查询性能优化 · 实战练习记录\n\n> 测试环境：PostgreSQL 16（Docker）  \n> 测试数据：`orders` 表 100 万行、`users` 表 10 万行、`events` 表 50 万行  \n> 所有耗时均为 `EXPLAIN ANALYZE` 实测值\n",
+    "cover": "/blogs/sqlp/93450bfe4a15db84.png",
+    "hidden": false,
+    "category": ""
+  },
+  {
+    "slug": "sshp",
+    "title": "SSH 端口转发指南",
+    "tags": [
+      "linux"
+    ],
+    "date": "2026-05-04T21:16",
+    "summary": "SSH 端口转发指南",
+    "hidden": false,
+    "category": ""
+  },
+  {
+    "slug": "Kernel",
+    "title": "Mac 上拉取 Kaggle Kernel 完整步骤",
+    "tags": [],
+    "date": "2026-05-02T15:29",
+    "summary": "Mac 上拉取 Kaggle Kernel 完整步骤",
     "hidden": false,
     "category": ""
   },

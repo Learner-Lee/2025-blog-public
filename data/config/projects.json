@@ -130,5 +130,17 @@
 			"AI"
 		],
 		"github": "https://github.com/Learner-Lee/Harness-guideline"
+	},
+	{
+		"name": "nyc-taxi-platform",
+		"year": 2026,
+		"image": "/images/project/a0f6ea3a3ead8e5d.png",
+		"url": "https://github.com/Learner-Lee/nyc-taxi-platform",
+		"description": "企业级大数据全栈项目 · 覆盖 存储 → 计算 → 数仓 → OLAP → 调度 → BI → 应用 全链路 NYC Yellow Taxi 2024 Q1 · 955 万行 · 全栈 Docker Compose 一键部署(架构支持扩展至 3 年全量)",
+		"tags": [
+			"数据"
+		],
+		"github": "https://github.com/Learner-Lee/nyc-taxi-platform",
+		"npm": "https://github.com/Learner-Lee/nyc-taxi-platform"
 	}
 ]

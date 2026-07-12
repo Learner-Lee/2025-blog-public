@@ -1,0 +1,11 @@
+{
+  "title": "NAS 去广告配置指南",
+  "tags": [
+    "NAS"
+  ],
+  "date": "2026-07-12T21:13",
+  "summary": "在自建 NAS 上部署 AdGuard Home / Pi-hole 做全屋 DNS 级去广告，并在 ASUS 路由器配置主备 DNS，避免 NAS 故障时导致全屋断网。",
+  "cover": "/blogs/nasads/b9e4ec773fc7bcec.png",
+  "hidden": false,
+  "category": ""
+}

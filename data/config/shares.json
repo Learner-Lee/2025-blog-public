@@ -31,7 +31,7 @@
 	},
 	{
 		"name": "Kaggle",
-		"logo": "",
+		"logo": "/images/share/3df0df1448a12767.png",
 		"url": "https://www.kaggle.com/",
 		"description": "数据分析竞赛",
 		"tags": [
@@ -41,7 +41,7 @@
 	},
 	{
 		"name": "Kaggle 数据集",
-		"logo": "",
+		"logo": "/images/share/3df0df1448a12767.png",
 		"url": "https://www.kaggle.com/datasets",
 		"description": "Kaggle 数据集",
 		"tags": [

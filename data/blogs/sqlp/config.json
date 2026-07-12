@@ -1,10 +1,11 @@
 {
-  "title": "CC 的学习 prompt：SQL 查询性能优化学习路线",
+  "title": "SQL 查询性能优化 · 实战练习记录",
   "tags": [
     "SQL"
   ],
-  "date": "2026-04-29T20:40",
-  "summary": "Prompt: 帮我系统学习 SQL 查询性能优化（给 Claude Code 的任务书）\n",
+  "date": "2026-05-08T22:23",
+  "summary": "# SQL 查询性能优化 · 实战练习记录\n\n> 测试环境：PostgreSQL 16（Docker）  \n> 测试数据：`orders` 表 100 万行、`users` 表 10 万行、`events` 表 50 万行  \n> 所有耗时均为 `EXPLAIN ANALYZE` 实测值\n",
+  "cover": "/blogs/sqlp/93450bfe4a15db84.png",
   "hidden": false,
   "category": ""
 }
