@@ -1,5 +1,22 @@
 {
-	"title": "关于本站",
-	"description": "一个基于 Github 的现代化博客系统",
-	"content": "📦网站基于 Github 仓库完全存储，所有内容版本可控\n\n🚀无后端，无 serverless function，纯静态站点\n\n✏️文章通过可视化 UI 直接编辑并提交到 Github 仓库\n\n🔑所有用户都可以编辑，提交需要 Owner 的 Private Key\n\n## 技术栈\n\n- Next.js\n- React\n- TypeScript\n- Tailwind CSS\n- Motion\n- Github API"
+	"title": "作品展示",
+	"description": "做过的一些东西，挑几个能直接上手玩的",
+	"works": [
+		{
+			"id": "web-pdf",
+			"name": "PDF 对照",
+			"year": 2026,
+			"tagline": "英文 PDF 的中文对照阅读器，文件不上传，解析全在浏览器完成。",
+			"image": "/images/project/75c1f4089438d372.png",
+			"demo": "https://web.alenli.cn/pdf/",
+			"github": "https://github.com/Learner-Lee/PDF-Tools",
+			"tags": [
+				"纯前端",
+				"PDF.js",
+				"LLM 翻译",
+				"隐私优先"
+			],
+			"content": "英文 PDF 读起来慢，多半不是因为读不懂，而是卡在几个生词上反复查。这个阅读器把原文和译文并排放，生词直接标出来，读完还能把它们导出成生词本。\n\n**PDF 不上传。** 解析、渲染全在浏览器里完成，原文和译文只存在于当前标签页的内存中，刷新就没了，服务器上不留任何痕迹。\n\n## 主要功能\n\n- **逐段对照**：左边原文、右边译文，按段落对齐，不用来回滚动\n- **难词标注**：可按考试大纲（中考 / 高考 / 四六级 / 考研 / 雅思 / 托福）或按词频档位（COCA 两万词以外等）圈出超纲词\n- **生词本**：看到不认识的词收进生词本，随时导出 CSV（单词、原形、音标、词性、释义、语境）\n- **导出 Markdown**：把整篇对照结果导出，方便存档或二次整理\n- **参考文献可跳过**：末尾的 references 通常不需要翻译，可以单独关掉省额度\n\n## 翻译服务自带\n\n密钥填你自己的，直接在浏览器里调用，不经过我的服务器。支持 DeepSeek、硅基流动、智谱 GLM、OpenRouter 等，界面里可以测试连接、拉取模型列表。阿里云百炼不支持跨域，需要额外配一个约 90 行的零依赖代理。\n\n## 部署形态\n\n前端是纯静态产物，6.1 MB，gzip 后约 2 MB，丢进任意一个静态服务器就能跑——不需要 Node、不需要数据库、不产生任何用户数据。当前这一份就跑在本站的 Nginx 上。\n"
+		}
+	]
 }

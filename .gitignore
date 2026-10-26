@@ -10,3 +10,9 @@ venv/
 node_modules/
 dist/
 build/
+
+# 环境变量（含密钥哈希），只保留在服务器本地
+.env.local
+
+# PDF 对照阅读器的构建产物，可由源码重新打包
+module/upload-PDF/site/

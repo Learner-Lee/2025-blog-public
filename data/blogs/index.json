@@ -1,5 +1,39 @@
 [
   {
+    "slug": "longtesk",
+    "title": "使用Claude code + Opus5.5实现长时间任务",
+    "tags": [
+      "Claude code"
+    ],
+    "date": "2026-09-23T13:40",
+    "summary": "希望让 Claude Code 连续工作数小时（大规模迁移、全仓库审计、重构、跨语言重写等）",
+    "hidden": false,
+    "category": ""
+  },
+  {
+    "slug": "image-prompt",
+    "title": "image-prompt",
+    "tags": [
+      "Prompt"
+    ],
+    "date": "2026-09-09T11:55",
+    "summary": "",
+    "cover": "/blogs/image-prompt/6d91562e5e4ad352.png",
+    "hidden": false,
+    "category": ""
+  },
+  {
+    "slug": "Meta-Prompt",
+    "title": "Meta-Prompt",
+    "tags": [
+      "Prompt"
+    ],
+    "date": "2026-09-03T16:12",
+    "summary": "功能性Prompt\n",
+    "hidden": false,
+    "category": ""
+  },
+  {
     "slug": "PG",
     "title": "建立可远程访问的 PostgreSQL 数据库",
     "tags": [

@@ -1,0 +1,5 @@
+{
+	"title": "Alen",
+	"description": "一个想多学点东西的新时代程序员",
+	"content": "## 语言能力\n- CET-4\n- IELTS 6\n\n## 技术栈\n- **数据分析**：Python(Pandas/NumPy/Scikit-learn/matplotlib)、SQL(MySQL/Redis)\n- **数据挖掘**：逻辑回归，KNN，K-Mean，决策树，随机森林 (bagging)，XGBoost (boosting)，SVM\n- **大数据**：Hadoop、Spark、Hive、Kafka、Zookeeper\n- **全栈开发**：Flask、RESTful APIs、 HTML、CSS、ECharts\n- **其他**：Claude Code，A/B Testing，Power BI，服务器搭建，Docker，Linux，COZE"
+}

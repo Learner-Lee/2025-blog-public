@@ -1,0 +1,45 @@
+# PDF 对照 · 纯前端版　Nginx 配置示例
+#
+# 把 upload/site/ 里的内容放到 root 指向的目录，就这些。
+
+server {
+    listen 443 ssl http2;
+    server_name pdf.example.com;          # 改成你的域名
+
+    # ssl_certificate     /etc/letsencrypt/live/pdf.example.com/fullchain.pem;
+    # ssl_certificate_key /etc/letsencrypt/live/pdf.example.com/privkey.pem;
+
+    root /var/www/pdf;
+    index index.html;
+
+    # 6.9 MB 能压到约 2 MB，务必打开
+    gzip on;
+    gzip_comp_level 6;
+    gzip_min_length 1024;
+    gzip_types text/css application/javascript text/javascript application/json;
+
+    # 文件名带内容哈希，可以长期缓存；换版本时文件名会变
+    location /assets/ {
+        expires 1y;
+        add_header Cache-Control "public, immutable";
+    }
+
+    # 词库文件名固定，用较短的缓存，换词库后能自动更新
+    location = /vocab.json {
+        expires 7d;
+    }
+
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+
+    # ── 以下仅在用阿里云百炼这类不支持跨域的服务时才需要 ──
+    # 启用后，在网页「设置」里把 Base URL 填成
+    #   https://pdf.example.com/proxy/v1
+    #
+    # location /proxy/ {
+    #     proxy_pass http://127.0.0.1:8788/;
+    #     proxy_set_header Authorization $http_authorization;
+    #     proxy_read_timeout 300s;        # 翻译长段落可能较慢
+    # }
+}

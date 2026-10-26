@@ -142,5 +142,29 @@
 		],
 		"github": "https://github.com/Learner-Lee/nyc-taxi-platform",
 		"npm": "https://github.com/Learner-Lee/nyc-taxi-platform"
+	},
+	{
+		"name": "Video-based-pose-tracking-for-pets",
+		"year": 2026,
+		"image": "/images/project/f1557329f583d9e0.png",
+		"url": "https://github.com/Learner-Lee/Video-based-pose-tracking-for-pets",
+		"description": "固定机位（户外院子监控）视频 → 自动输出「某只猫 在 x 秒到 y 秒 做某动作」的区间标注， 并区分猫的个体身份。一站式 Web 界面：导入视频 → 预标注 → 人工标注 → 学习闭环。\n\n零训练数据即可跑第一版（规则 + VLM 零样本），人工纠错后的数据再回流微调，越用越准。",
+		"tags": [
+			"数据预标注"
+		],
+		"github": "https://github.com/Learner-Lee/Video-based-pose-tracking-for-pets",
+		"npm": "https://github.com/Learner-Lee/Video-based-pose-tracking-for-pets"
+	},
+	{
+		"name": "PDF-Tools",
+		"year": 2026,
+		"image": "/images/project/75c1f4089438d372.png",
+		"url": "https://github.com/Learner-Lee/PDF-Tools",
+		"description": "英文 PDF 的中文对照阅读器。",
+		"tags": [
+			"PDF"
+		],
+		"github": "https://github.com/Learner-Lee/PDF-Tools",
+		"npm": "https://github.com/Learner-Lee/PDF-Tools"
 	}
 ]

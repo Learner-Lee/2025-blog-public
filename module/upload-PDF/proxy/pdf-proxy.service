@@ -1,0 +1,26 @@
+# 转发代理的 systemd 单元。只在用阿里云百炼这类不支持跨域的服务时才需要。
+#
+#   sudo cp pdf-proxy.service /etc/systemd/system/
+#   sudo mkdir -p /opt/pdf-proxy && sudo cp server.mjs /opt/pdf-proxy/
+#   # 改下面的 ORIGIN 为你的站点地址，然后：
+#   sudo systemctl enable --now pdf-proxy
+
+[Unit]
+Description=PDF 对照 转发代理
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/node /opt/pdf-proxy/server.mjs
+Environment=UPSTREAM=https://dashscope.aliyuncs.com/compatible-mode/v1
+Environment=ORIGIN=https://改成你的站点地址
+Environment=PORT=8788
+Restart=always
+RestartSec=3
+User=www-data
+# 代理不需要写任何文件
+ProtectSystem=strict
+PrivateTmp=true
+NoNewPrivileges=true
+
+[Install]
+WantedBy=multi-user.target
