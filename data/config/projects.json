@@ -166,5 +166,20 @@
 		],
 		"github": "https://github.com/Learner-Lee/PDF-Tools",
 		"npm": "https://github.com/Learner-Lee/PDF-Tools"
+	},
+	{
+		"name": "电商用户行为实时数仓",
+		"year": 2026,
+		"image": "/images/project/5d4c71af5306f228.png",
+		"url": "https://github.com/Learner-Lee/Real-Time-Data-Warehouse-for-E-Commerce-User-Behavior-and-User-Profiling",
+		"description": "\tFlume+Kafka采集埋点日志，Flink CDC同步业务库，日均5000万+条，Kafka峰值2万条/秒。\n\t用Flink SQL构建实时DWD/DWS层，Watermark+侧输出处理乱序与迟到数据；HBase维表通过异步IO做Lookup Join。\n\t结果写入Doris支撑实时大屏，覆盖UV/GMV/转化漏斗等30+指标，查询P95<1s。\n\t基于DWS层沉淀50+用户行为特征，用RFM+K-Means把用户分成6类，XGBoost复购预测AUC达0.82，结果回写为画像标签。\n",
+		"tags": [
+			"大数据",
+			"Flink",
+			"Kafka",
+			"Doris"
+		],
+		"github": "https://github.com/Learner-Lee/Real-Time-Data-Warehouse-for-E-Commerce-User-Behavior-and-User-Profiling",
+		"npm": "https://github.com/Learner-Lee/Real-Time-Data-Warehouse-for-E-Commerce-User-Behavior-and-User-Profiling"
 	}
 ]

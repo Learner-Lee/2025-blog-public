@@ -1,5 +1,60 @@
 [
   {
+    "slug": "java-wrapper",
+    "title": "Java 基础：包装类（Wrapper Class）",
+    "tags": [
+      "Java"
+    ],
+    "date": "2026-11-04T16:09",
+    "summary": "Java 基础：包装类（Wrapper Class）",
+    "hidden": false,
+    "category": ""
+  },
+  {
+    "slug": "java-map",
+    "title": "Java 基础：Map、HashMap 与 Hash 的关系",
+    "tags": [
+      "java"
+    ],
+    "date": "2026-11-04T15:58",
+    "summary": "Java 基础：Map、HashMap 与 Hash 的关系",
+    "hidden": false,
+    "category": ""
+  },
+  {
+    "slug": "Java-string",
+    "title": "Java 基础：String、StringBuilder、StringBuffer",
+    "tags": [
+      "Java"
+    ],
+    "date": "2026-11-04T15:54",
+    "summary": "Java 基础：String、StringBuilder、StringBuffer",
+    "hidden": false,
+    "category": ""
+  },
+  {
+    "slug": "hash-origin",
+    "title": "Hash 的诞生：为什么计算机需要哈希？",
+    "tags": [
+      "Hash"
+    ],
+    "date": "2026-11-04T15:40",
+    "summary": "Hash 的诞生：为什么计算机需要哈希？",
+    "hidden": false,
+    "category": ""
+  },
+  {
+    "slug": "hash",
+    "title": "哈希（Hash）基础知识",
+    "tags": [
+      "Hash"
+    ],
+    "date": "2026-11-04T15:28",
+    "summary": "哈希（Hash）基础知识",
+    "hidden": false,
+    "category": ""
+  },
+  {
     "slug": "longtesk",
     "title": "使用Claude code + Opus5.5实现长时间任务",
     "tags": [

@@ -9,7 +9,11 @@ export type BlogIndexItem = {
 	category?: string
 }
 
+export type BlogFormat = 'md' | 'html'
+
 export type BlogConfig = {
+	// 缺省为 md；html 笔记的正文存为 index.html
+	format?: BlogFormat
 	title?: string
 	tags?: string[]
 	date?: string

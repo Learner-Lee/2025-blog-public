@@ -6,9 +6,12 @@ import { useMarkdownRender } from '@/hooks/use-markdown-render'
 import { useSize } from '@/hooks/use-size'
 import { BlogSidebar } from '@/components/blog-sidebar'
 import { useConfigStore } from '@/app/(home)/stores/config-store'
+import { HtmlNote } from '@/components/html-note'
+import type { BlogFormat } from '@/app/blog/types'
 
 type BlogPreviewProps = {
 	markdown: string
+	format?: BlogFormat
 	title: string
 	tags: string[]
 	date: string
@@ -17,9 +20,10 @@ type BlogPreviewProps = {
 	slug?: string
 }
 
-export function BlogPreview({ markdown, title, tags, date, summary, cover, slug }: BlogPreviewProps) {
+export function BlogPreview({ markdown, format = 'md', title, tags, date, summary, cover, slug }: BlogPreviewProps) {
 	const { maxSM: isMobile } = useSize()
-	const { content, toc, loading } = useMarkdownRender(markdown)
+	const isHtml = format === 'html'
+	const { content, toc, loading } = useMarkdownRender(isHtml ? '' : markdown)
 	const { siteContent } = useConfigStore()
 	const summaryInContent = siteContent.summaryInContent ?? false
 
@@ -47,7 +51,13 @@ export function BlogPreview({ markdown, title, tags, date, summary, cover, slug 
 
 					{summary && summaryInContent && <div className='text-secondary mt-6 cursor-text text-center text-sm'>“{summary}”</div>}
 
-					<div className='prose mt-6 max-w-none cursor-text'>{content}</div>
+					{isHtml ? (
+						<div className='mt-6'>
+							<HtmlNote html={markdown} />
+						</div>
+					) : (
+						<div className='prose mt-6 max-w-none cursor-text'>{content}</div>
+					)}
 				</div>
 			</motion.article>
 

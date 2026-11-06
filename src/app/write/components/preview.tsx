@@ -17,6 +17,7 @@ export function WritePreview({ form, coverPreviewUrl, onClose, slug }: WritePrev
 			<div onClick={e => e.stopPropagation()}>
 				<BlogPreview
 					markdown={previewData.markdown}
+					format={form.format}
 					title={previewData.title}
 					tags={form.tags}
 					date={previewData.date}

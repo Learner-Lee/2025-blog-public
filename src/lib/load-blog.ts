@@ -1,10 +1,12 @@
-import type { BlogConfig } from '@/app/blog/types'
+import type { BlogConfig, BlogFormat } from '@/app/blog/types'
 
 export type { BlogConfig } from '@/app/blog/types'
 
 export type LoadedBlog = {
 	slug: string
 	config: BlogConfig
+	format: BlogFormat
+	// 正文内容；format 为 html 时这里是 HTML 源码
 	markdown: string
 	cover?: string
 }
@@ -29,8 +31,9 @@ export async function loadBlog(slug: string): Promise<LoadedBlog> {
 		}
 	}
 
-	// Load index.md
-	const mdRes = await fetch(`/blogs/${encodeURIComponent(slug)}/index.md`)
+	// Load index.md / index.html
+	const format: BlogFormat = config.format === 'html' ? 'html' : 'md'
+	const mdRes = await fetch(`/blogs/${encodeURIComponent(slug)}/index.${format}`)
 	if (!mdRes.ok) {
 		throw new Error('Blog not found')
 	}
@@ -39,6 +42,7 @@ export async function loadBlog(slug: string): Promise<LoadedBlog> {
 	return {
 		slug,
 		config,
+		format,
 		markdown,
 		cover: config.cover
 	}

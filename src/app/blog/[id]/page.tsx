@@ -5,7 +5,7 @@ import { useParams, useRouter } from 'next/navigation'
 import dayjs from 'dayjs'
 import { motion } from 'motion/react'
 import { BlogPreview } from '@/components/blog-preview'
-import { loadBlog, type BlogConfig } from '@/lib/load-blog'
+import { loadBlog, type LoadedBlog } from '@/lib/load-blog'
 import { useReadArticles } from '@/hooks/use-read-articles'
 import LiquidGrass from '@/components/liquid-grass'
 
@@ -15,7 +15,7 @@ export default function Page() {
 	const router = useRouter()
 	const { markAsRead } = useReadArticles()
 
-	const [blog, setBlog] = useState<{ config: BlogConfig; markdown: string; cover?: string } | null>(null)
+	const [blog, setBlog] = useState<LoadedBlog | null>(null)
 	const [error, setError] = useState<string | null>(null)
 	const [loading, setLoading] = useState<boolean>(true)
 
@@ -72,6 +72,7 @@ export default function Page() {
 		<>
 			<BlogPreview
 				markdown={blog.markdown}
+				format={blog.format}
 				title={title}
 				tags={tags}
 				date={date}

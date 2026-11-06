@@ -12,6 +12,7 @@ const MIME: Record<string, string> = {
 	'.json': 'application/json',
 	'.md': 'text/markdown; charset=utf-8',
 	'.txt': 'text/plain; charset=utf-8',
+	'.html': 'text/html; charset=utf-8',
 }
 
 // Image files use content-hash filenames → safe to cache forever
@@ -34,12 +35,15 @@ export async function GET(_req: NextRequest, { params }: { params: Promise<{ slu
 		const cacheControl = IMAGE_EXTS.has(ext)
 			? 'public, max-age=31536000, immutable'
 			: 'no-cache'
-		return new NextResponse(content, {
-			headers: {
-				'Content-Type': contentType,
-				'Cache-Control': cacheControl,
-			},
-		})
+		const headers: Record<string, string> = {
+			'Content-Type': contentType,
+			'Cache-Control': cacheControl,
+		}
+		// HTML 笔记直接打开时也跑在隔离的 opaque origin 里，读不到本站的 sessionStorage（blog.key）
+		if (ext === '.html') {
+			headers['Content-Security-Policy'] = 'sandbox allow-scripts allow-popups allow-popups-to-escape-sandbox'
+		}
+		return new NextResponse(content, { headers })
 	} catch {
 		return new NextResponse('Not found', { status: 404 })
 	}

@@ -1,5 +1,6 @@
 import { motion } from 'motion/react'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
+import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
 import { useWriteStore } from '../stores/write-store'
 import { usePreviewStore } from '../stores/preview-store'
@@ -9,14 +10,25 @@ import { useAuthStore } from '@/hooks/use-auth'
 import { ImportMdDialog } from './import-md-dialog'
 
 export function WriteActions() {
-	const { loading, mode, form, originalSlug } = useWriteStore()
+	const { loading, mode, form, originalSlug, updateForm } = useWriteStore()
 	const { openPreview } = usePreviewStore()
 	const { isAuth, onPublish, onDelete } = usePublish()
 	const { setPrivateKey } = useAuthStore()
 	const [saving, setSaving] = useState(false)
 	const [showPasswordDialog, setShowPasswordDialog] = useState(false)
 	const [showImportDialog, setShowImportDialog] = useState(false)
+	const htmlInputRef = useRef<HTMLInputElement>(null)
 	const router = useRouter()
+
+	const handleImportHtml = async (e: React.ChangeEvent<HTMLInputElement>) => {
+		const file = e.target.files?.[0]
+		e.target.value = ''
+		if (!file) return
+		const html = await file.text()
+		const docTitle = new DOMParser().parseFromString(html, 'text/html').title.trim()
+		updateForm({ md: html, format: 'html', ...(!form.title && docTitle ? { title: docTitle } : {}) })
+		toast.success('已导入 HTML 笔记')
+	}
 
 	const handleImportOrPublish = () => {
 		if (!isAuth) {
@@ -98,6 +110,17 @@ export function WriteActions() {
 					onClick={() => setShowImportDialog(true)}>
 					导入 MD
 				</motion.button>
+				<motion.button
+					initial={{ opacity: 0, scale: 0.6 }}
+					animate={{ opacity: 1, scale: 1 }}
+					whileHover={{ scale: 1.05 }}
+					whileTap={{ scale: 0.95 }}
+					className='bg-card rounded-xl border px-4 py-2 text-sm'
+					disabled={loading}
+					onClick={() => htmlInputRef.current?.click()}>
+					导入 HTML
+				</motion.button>
+				<input ref={htmlInputRef} type='file' accept='.html,.htm' className='hidden' onChange={handleImportHtml} />
 				<motion.button
 					initial={{ opacity: 0, scale: 0.6 }}
 					animate={{ opacity: 1, scale: 1 }}

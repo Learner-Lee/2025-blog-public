@@ -1,7 +1,8 @@
-import { toBase64Utf8, writeTextFile, writeBinaryFile } from '@/lib/local-client'
+import { toBase64Utf8, writeTextFile, writeBinaryFile, deleteFile } from '@/lib/local-client'
 import { fileToBase64NoPrefix, hashFileSHA256 } from '@/lib/file-utils'
 import { prepareBlogsIndex } from '@/lib/blog-index'
 import type { ImageItem } from '../types'
+import type { BlogFormat } from '@/app/blog/types'
 import { getFileExt } from '@/lib/utils'
 import { toast } from 'sonner'
 import { formatDateTimeLocal } from '../stores/write-store'
@@ -11,6 +12,7 @@ export type PushBlogParams = {
 		slug: string
 		title: string
 		md: string
+		format: BlogFormat
 		tags: string[]
 		date?: string
 		summary?: string
@@ -85,10 +87,16 @@ export async function pushBlog(params: PushBlogParams): Promise<void> {
 
 	toast.info('正在保存文章...')
 
-	await writeTextFile(`${basePath}/index.md`, mdToUpload)
+	const ext = form.format === 'html' ? 'html' : 'md'
+	await writeTextFile(`${basePath}/index.${ext}`, mdToUpload)
+	// 编辑时切换了格式，清掉另一种格式的旧正文
+	if (mode === 'edit') {
+		await deleteFile(`${basePath}/index.${ext === 'html' ? 'md' : 'html'}`)
+	}
 
 	const dateStr = form.date || formatDateTimeLocal()
 	const config = {
+		format: form.format,
 		title: form.title,
 		tags: form.tags,
 		date: dateStr,

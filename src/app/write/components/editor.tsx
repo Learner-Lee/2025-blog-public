@@ -127,7 +127,11 @@ export function WriteEditor() {
 		}
 	}
 
+	const isHtml = form.format === 'html'
+
 	const handlePaste = async (e: React.ClipboardEvent<HTMLTextAreaElement>) => {
+		// 粘贴图片会插入 Markdown 图片语法，HTML 笔记不适用
+		if (isHtml) return
 		const items = e.clipboardData.items
 		if (!items) return
 
@@ -176,10 +180,11 @@ export function WriteEditor() {
 					value={form.slug}
 					onChange={e => updateForm({ slug: e.target.value })}
 				/>
+				{isHtml && <span className='flex items-center rounded-lg border bg-amber-50 px-3 text-xs text-amber-700'>HTML 笔记</span>}
 			</div>
 			<textarea
 				ref={textareaRef}
-				placeholder='Markdown 内容'
+				placeholder={isHtml ? 'HTML 源码' : 'Markdown 内容'}
 				className='bg-card h-[650px] w-full flex-1 resize-none rounded-xl border p-4 text-sm'
 				value={form.md}
 				onChange={e => updateForm({ md: e.target.value })}

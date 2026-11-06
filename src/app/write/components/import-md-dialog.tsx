@@ -103,7 +103,7 @@ export function ImportMdDialog({ open, onClose }: Props) {
 				}
 			}
 
-			updateForm({ md })
+			updateForm({ md, format: 'md' })
 			toast.success('导入成功')
 			handleClose()
 		} catch (err) {
