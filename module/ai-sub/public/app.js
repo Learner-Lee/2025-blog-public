@@ -5,6 +5,7 @@ const READ = 'ai-sub:read:v1';
 const PAGE_SIZE = 24;
 const names = { all: '全部动态', release: '产品更新', blog: '技术博客', saved: '我的收藏' };
 const priorities = { high: '重点', medium: '关注', low: '了解' };
+const priorityHints = { high: '优先阅读', medium: '按需阅读', low: '快速浏览' };
 const rank = { high: 0, medium: 1, low: 2 };
 let items = [], loaded = false, busy = false, shown = PAGE_SIZE, activeItem = null, detailTrigger = null;
 let saved = {}, read = {}, storageAvailable = true, searchTimer, toastTimer;
@@ -74,9 +75,17 @@ function saveButton(item, detail = false) {
 function originalLink(item, className, label) {
   const link = el('a',className,label); link.href = item.url; link.target = '_blank'; link.rel = 'noopener noreferrer'; link.addEventListener('click',()=>markRead(item)); return link;
 }
-function card(item, featured) {
-  const article = el('article','article' + (featured ? ' featured' : '') + (read[item.id] ? ' is-read' : '')); article.dataset.itemId = item.id;
-  const top = el('div','card-top'); const source = el('div','source'); source.append(el('span','source-letter',(item.source || 'A').slice(0,1).toUpperCase()),el('span','source-name',item.source || '未知来源')); top.append(source,el('span','badge '+item.importance,(featured ? '✦ ' : '') + priorities[item.importance]));
+function importanceBadge(level) {
+  const badge = el('span', 'badge ' + level);
+  badge.title = priorities[level] + '：' + priorityHints[level];
+  const bars = el('span', 'importance-bars'); bars.setAttribute('aria-hidden', 'true');
+  for (let index = 0; index < 3; index++) bars.append(el('i', index < 3 - rank[level] ? 'active' : ''));
+  badge.append(bars, el('span', '', priorities[level]));
+  return badge;
+}
+function card(item) {
+  const article = el('article','article importance-' + item.importance + (read[item.id] ? ' is-read' : '')); article.dataset.itemId = item.id;
+  const top = el('div','card-top'); const source = el('div','source'); source.append(el('span','source-letter',(item.source || 'A').slice(0,1).toUpperCase()),el('span','source-name',item.source || '未知来源')); top.append(source,importanceBadge(item.importance));
   const h3 = el('h3'); const button = el('button','title-button',title(item)); button.type = 'button'; button.addEventListener('click',()=>openDetail(item, button)); h3.append(button);
   const summary = el('p','card-summary',item.summary_zh || item.summary || '暂无摘要，点击查看原文。');
   const meta = el('div','card-meta'); meta.append(el('span','tag',item.kind==='release'?'产品更新':'技术博客')); if (item.category) meta.append(el('span','tag',item.category)); if (item.product && item.product !== item.source) meta.append(el('span','tag',item.product)); if (read[item.id]) meta.append(el('span','read-label','已读'));
@@ -90,7 +99,7 @@ function openDetail(item, trigger) {
   body.append(el('div','detail-source',item.source+' · '+(item.kind==='release'?'产品更新':'技术博客')));
   const heading = el('h2','',title(item)); heading.id = 'detail-title'; body.append(heading);
   if (item.title_zh && item.title && item.title_zh !== item.title) body.append(el('p','detail-original',item.title));
-  const meta = el('div','card-meta'); meta.append(el('span','badge '+item.importance,priorities[item.importance]),el('span','tag',item.category || '其他主题'),el('span','',dateText(item.published_date || item.fetched_at)+' '+(item.published_date ? '发布' : '收录'))); body.append(meta);
+  const meta = el('div','card-meta'); meta.append(importanceBadge(item.importance),el('span','tag',item.category || '其他主题'),el('span','',dateText(item.published_date || item.fetched_at)+' '+(item.published_date ? '发布' : '收录'))); body.append(meta);
   body.append(el('div','detail-heading','AI 内容摘要'),el('div','detail-summary',item.summary_zh || item.summary || '这篇内容还没有摘要，可直接阅读原文。'));
   if (item.summary_zh && item.summary && item.summary !== item.summary_zh) {const details=el('details'); const summary=el('summary','detail-heading','查看原始摘要'); details.append(summary,el('div','detail-summary',item.summary));body.append(details);}
   const actions = el('div','detail-actions'); const holder=el('span');holder.id='detail-save';actions.append(originalLink(item,'primary-button','前往原文 ↗'),holder);body.append(actions,el('p','detail-note','收录于 '+dateText(item.fetched_at,true)+' · 摘要由 AI 整理，完整内容与准确表述请以原文为准。'));updateDetailSave();
@@ -129,7 +138,7 @@ function render() {
     else if(state.view==='saved'&&!Object.keys(saved).length)showMessage('把值得细读的内容收藏起来','点击卡片上的 ☆，它就会留在这里。收藏仅存在当前浏览器，建议定期导出。');
     else showMessage('没有找到符合条件的内容','试试换个关键词，或减少筛选条件。',{label:'清除筛选',run:clearFilters});
   }
-  const fragment=document.createDocumentFragment();results.slice(0,shown).forEach((item,index)=>fragment.append(card(item,index===0&&item.importance==='high'&&state.view!=='saved')));$('cards').append(fragment);
+  const fragment=document.createDocumentFragment();results.slice(0,shown).forEach(item=>fragment.append(card(item)));$('cards').append(fragment);
   $('load-more').hidden=results.length<=shown;$('list-end').textContent=results.length?'已显示 '+Math.min(shown,results.length)+' / '+results.length+' 篇':'';
   if(previousSaveId&&previousFocus!==document.activeElement){const replacement=$('cards').querySelector('[data-item-id="'+previousSaveId+'"] .save-button');if(replacement)replacement.focus({preventScroll:true});else $('feed').focus({preventScroll:true});}
   syncURL();

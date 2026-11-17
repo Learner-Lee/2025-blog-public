@@ -7,8 +7,8 @@
   <meta name="description" content="AI-Sub 知识收集：持续收录 AI 产品更新与技术博客，按来源、主题和重要性筛选，收藏值得细读的内容。">
   <title>AI-Sub · AI 知识收集</title>
   <link rel="icon" href="./cover.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="./style.css?v=1">
-  <script src="./app.js?v=1" defer></script>
+  <link rel="stylesheet" href="./style.css?v=2">
+  <script src="./app.js?v=2" defer></script>
 </head>
 <body>
   <a class="skip" href="#feed">跳到内容</a>
@@ -34,7 +34,16 @@
       <section class="stats" aria-label="收录概览"><div><span>已收录内容</span><strong id="stat-total">—</strong><small>AI 相关动态</small></div><div><span>近 24 小时</span><strong id="stat-today">—</strong><small>新收录内容</small></div><div><span>重点关注</span><strong id="stat-high">—</strong><small>高重要性内容</small></div><div><span>内容来源</span><strong id="stat-sources">—</strong><small>产品与技术博客</small></div></section>
       <section class="controls" aria-label="搜索与筛选">
         <div class="search-row"><label class="search"><span aria-hidden="true">⌕</span><input id="search" type="search" maxlength="200" placeholder="搜索标题、摘要、产品或来源…" aria-label="搜索内容"><kbd>/</kbd></label><button id="export" class="outline-button" title="将收藏内容导出为 Markdown">↓ 导出收藏</button></div>
-        <div class="filter-row"><div class="importance" role="group" aria-label="重要性"><button data-importance="all" class="selected">全部级别</button><button data-importance="high"><i class="priority high"></i>重点</button><button data-importance="medium"><i class="priority medium"></i>关注</button><button data-importance="low"><i class="priority low"></i>了解</button></div><div class="selects"><label><span class="sr-only">来源</span><select id="source"><option value="">所有来源</option></select></label><label><span class="sr-only">主题</span><select id="category"><option value="">所有主题</option></select></label><label><span class="sr-only">收录时间范围</span><select id="days"><option value="0">所有时间</option><option value="1">近 24 小时收录</option><option value="7">近 7 天收录</option><option value="30">近 30 天收录</option></select></label></div></div>
+        <div class="importance-heading"><span>阅读优先级</span><small>由 AI 评估</small></div>
+        <div class="filter-row">
+          <div class="importance" role="group" aria-label="重要性">
+            <button data-importance="all" class="selected"><span class="importance-label">全部级别</span><small>查看所有内容</small><span class="selection-mark" aria-hidden="true">✓</span></button>
+            <button data-importance="high"><span class="importance-label"><span class="importance-bars" aria-hidden="true"><i class="active"></i><i class="active"></i><i class="active"></i></span>重点</span><small>优先阅读</small><span class="selection-mark" aria-hidden="true">✓</span></button>
+            <button data-importance="medium"><span class="importance-label"><span class="importance-bars" aria-hidden="true"><i class="active"></i><i class="active"></i><i></i></span>关注</span><small>按需阅读</small><span class="selection-mark" aria-hidden="true">✓</span></button>
+            <button data-importance="low"><span class="importance-label"><span class="importance-bars" aria-hidden="true"><i class="active"></i><i></i><i></i></span>了解</span><small>快速浏览</small><span class="selection-mark" aria-hidden="true">✓</span></button>
+          </div>
+          <div class="selects"><label><span class="sr-only">来源</span><select id="source"><option value="">所有来源</option></select></label><label><span class="sr-only">主题</span><select id="category"><option value="">所有主题</option></select></label><label><span class="sr-only">收录时间范围</span><select id="days"><option value="0">所有时间</option><option value="1">近 24 小时收录</option><option value="7">近 7 天收录</option><option value="30">近 30 天收录</option></select></label></div>
+        </div>
       </section>
       <section id="feed" tabindex="-1" aria-label="动态列表">
         <div class="feed-heading"><h2 id="list-title">最新收录 <span id="result-count"></span></h2><label class="sort-label">排序 <select id="sort" aria-label="排序"><option value="newest">最近收录</option><option value="published">最近发布</option><option value="importance">重要性优先</option></select></label></div>

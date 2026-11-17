@@ -8,3 +8,45 @@ dialog{border:1px solid #cbd5c3;border-radius:14px;background:#fafbf7;width:min(
 @media(max-width:760px){.sidebar{position:static;width:100%;padding:18px 20px 0;border-right:0;border-bottom:1px solid var(--line);display:block}.logo{font-size:22px}.logo-mark{width:36px;height:36px;line-height:36px;font-size:26px;border-radius:10px}.logo small{font-size:8px}.nav-label,.sidebar-note,.sidebar-bottom{display:none}.main-nav{display:flex;gap:5px;margin-top:20px;overflow-x:auto;padding-bottom:10px}.nav-item{padding:8px 11px;font-size:11px;gap:7px;white-space:nowrap;flex:1;justify-content:center}.nav-icon{font-size:16px;width:16px}.count{font-size:9px;margin-left:0}.workspace{margin-left:0}.topbar{height:55px;padding:0 22px}.top-actions{gap:10px}.update-time{font-size:9px}main{padding:29px 22px 0}.intro-line{display:block}h1{font-size:25px}h1 span{display:block;font-size:27px;line-height:1.6}.intro p{font-size:11px;max-width:300px;line-height:1.9;margin-top:10px}.eyebrow{font-size:8px;letter-spacing:1.6px}.stats{margin:25px 0;grid-template-columns:repeat(4,1fr)}.stats>div{padding:13px 10px}.stats span{font-size:9px}.stats strong{font-size:24px}.stats small{display:none}.search-row{gap:8px}.search{padding:0 11px;gap:7px;height:43px}.search input{font-size:11px}.search kbd{display:none}.search-row .outline-button{font-size:10px;padding:8px 10px}.filter-row{gap:10px}.importance{gap:3px;width:100%;justify-content:space-between}.importance button{padding:6px 11px}.selects{width:100%;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}.selects label{min-width:0}select{font-size:10px;max-width:100%;width:100%;padding:7px 3px 7px 6px}.cards{grid-template-columns:1fr;gap:14px}.article{padding:22px 21px 15px}.article h3{font-size:18px}.card-summary{font-size:12px;-webkit-line-clamp:3}.source{font-size:11px}.card-date,.card-meta{font-size:10px}.card-actions{gap:18px}.original-link{font-size:11px}.footer{font-size:9px;line-height:1.9;gap:8px}#toast{left:50%;width:max-content;max-width:calc(100% - 36px);text-align:center}dialog{padding:20px}#detail-title{font-size:22px}.detail-summary{font-size:13px}.sort-label select{width:auto}.sort-label{gap:2px}.feed-heading{margin-bottom:16px}}
 @media(max-width:360px){.nav-item{padding:8px;font-size:10px}.nav-icon{display:none}main{padding-left:16px;padding-right:16px}.stats>div{padding:12px 8px}h1{font-size:23px}h1 span{font-size:24px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;scroll-behavior:auto!important}}
+
+/* The same three colors and signal levels identify priority everywhere. */
+:root{--high-ink:#b42332;--high-wash:#fff0f1;--high-edge:#d64d57;--medium-ink:#8c520b;--medium-wash:#fff6e7;--medium-edge:#d5a03b;--low-ink:#1b62a3;--low-wash:#edf5ff;--low-edge:#6a99c8}
+.importance-heading{display:flex;align-items:center;gap:10px;margin-top:22px;font-size:11px;font-weight:600;color:#52634b}
+.importance-heading small{font-size:10px;font-weight:400;color:var(--muted)}
+.filter-row{margin-top:10px;gap:14px}
+.importance{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;width:100%}
+.importance button{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:3px;min-height:72px;padding:12px 16px;border:1px solid var(--level-edge,var(--line));border-radius:8px;background:var(--level-wash,#fafbf7);color:var(--level-ink,#52634b);text-align:left;transition:box-shadow .15s,background .15s}
+.importance button[data-importance="high"]{--level-ink:var(--high-ink);--level-wash:var(--high-wash);--level-edge:#f0bcc2}
+.importance button[data-importance="medium"]{--level-ink:var(--medium-ink);--level-wash:var(--medium-wash);--level-edge:#ead1a3}
+.importance button[data-importance="low"]{--level-ink:var(--low-ink);--level-wash:var(--low-wash);--level-edge:#bdd5ed}
+.importance button:hover{box-shadow:0 0 0 2px var(--level-edge,#cbd8c5)}
+.importance button.selected{background:var(--level-ink,var(--green));border-color:var(--level-ink,var(--green));color:#fff;box-shadow:0 3px 8px #20302518}
+.importance-label{display:flex;align-items:center;gap:8px;font-size:14px;line-height:1.5;font-weight:650}
+.importance button small{font-size:11px;line-height:1.5;opacity:.9}
+.selection-mark{display:none;position:absolute;top:12px;right:12px;font-size:12px}
+.selected .selection-mark{display:block}
+.importance-bars{display:inline-flex;align-items:flex-end;gap:2px;width:17px;height:15px;flex-shrink:0}
+.importance-bars i{display:block;width:4px;border-radius:1px;background:currentColor;opacity:.2}
+.importance-bars i:nth-child(1){height:5px}.importance-bars i:nth-child(2){height:10px}.importance-bars i:nth-child(3){height:15px}
+.importance-bars i.active{opacity:1}
+.badge{display:inline-flex;align-items:center;gap:7px;flex-shrink:0;padding:5px 10px;border:1px solid transparent;border-radius:6px;font-size:12px;font-weight:650;line-height:1.5}
+.badge.high{color:var(--high-ink);background:var(--high-wash);border-color:#f0bcc2}
+.badge.medium{color:var(--medium-ink);background:var(--medium-wash);border-color:#ead1a3}
+.badge.low{color:var(--low-ink);background:var(--low-wash);border-color:#bdd5ed}
+.badge .importance-bars{width:14px;height:12px;gap:2px}.badge .importance-bars i{width:3px}
+.badge .importance-bars i:nth-child(1){height:4px}.badge .importance-bars i:nth-child(2){height:8px}.badge .importance-bars i:nth-child(3){height:12px}
+.article{border-left-width:4px}
+.article.importance-high{border-left-color:var(--high-edge);background:linear-gradient(115deg,#fff7f7,#fff 58%)}
+.article.importance-medium{border-left-color:var(--medium-edge);background:linear-gradient(115deg,#fffbf3,#fff 58%)}
+.article.importance-low{border-left-color:var(--low-edge);background:linear-gradient(115deg,#f5f9ff,#fff 58%)}
+.article.importance-high:hover{border-color:#edb5bb;border-left-color:var(--high-edge)}
+.article.importance-medium:hover{border-color:#e5cb9d;border-left-color:var(--medium-edge)}
+.article.importance-low:hover{border-color:#b9d1e9;border-left-color:var(--low-edge)}
+#detail-body>.card-meta{align-items:center;gap:10px}
+@media(max-width:760px){
+  .importance{gap:7px}.importance button{min-height:77px;align-items:center;padding:13px 4px 10px;text-align:center}
+  .importance-label{font-size:12px;gap:5px}.importance button small{font-size:10px}
+  .importance .importance-bars{width:13px;height:12px;gap:2px}.importance .importance-bars i{width:3px}
+  .importance .importance-bars i:nth-child(1){height:4px}.importance .importance-bars i:nth-child(2){height:8px}.importance .importance-bars i:nth-child(3){height:12px}
+  .selection-mark{top:2px;right:5px;font-size:10px}
+}
