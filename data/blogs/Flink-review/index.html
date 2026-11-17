@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="Flink CDC、Window、Watermark、Allowed Lateness、Side Output：从概念到案例的离线复习手册。">
+  <title>Flink 实时计算复习手册｜窗口 · Watermark · 迟到 · 侧输出</title>
+  <style>
+    :root{--bg:#f6f8fc;--surface:#fff;--muted-surface:#f1f5fb;--text:#182438;--muted:#64748b;--line:#e3eaf3;--brand:#245ec7;--brand-soft:#eaf2ff;--teal:#087e72;--teal-soft:#e5f7f1;--orange:#b76014;--orange-soft:#fff3e4;--red:#b8424b;--red-soft:#fff0f0;--shadow:0 10px 30px rgba(20,40,90,.06);--radius:17px}
+    [data-theme="dark"]{--bg:#0e1729;--surface:#172337;--muted-surface:#202e45;--text:#edf3fb;--muted:#a4b3c8;--line:#324258;--brand:#84b3ff;--brand-soft:#1c3559;--teal:#68d8bb;--teal-soft:#17433e;--orange:#ffc078;--orange-soft:#553922;--red:#ff939c;--red-soft:#522b35;--shadow:none}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.75;font-size:15px}button,input{font:inherit}a{color:var(--brand);text-decoration:none}a:hover{text-decoration:underline}
+    .shell{max-width:1240px;margin:auto;padding:24px 24px 80px}.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;gap:12px}.brandmark{display:flex;align-items:center;gap:11px;font-weight:800;letter-spacing:.01em}.brandmark .logo{display:grid;place-items:center;background:linear-gradient(135deg,#3979e6,#1a9da1);color:white;border-radius:12px;width:36px;height:36px;font-size:19px}.top-actions{display:flex;gap:8px;flex-wrap:wrap}.btn{cursor:pointer;padding:8px 12px;border:1px solid var(--line);background:var(--surface);color:var(--text);border-radius:11px;font-size:13px;font-weight:600}.btn:hover{border-color:var(--brand);color:var(--brand)}.btn.primary{background:#2868d2;color:white;border-color:#2868d2}.btn.primary:hover{background:#1956bd;color:#fff}
+    .hero{padding:36px 42px 34px;background:linear-gradient(120deg,#183e83 0%,#255bb4 54%,#158d96 100%);border-radius:24px;color:white;overflow:hidden;position:relative;box-shadow:0 14px 36px rgba(21,71,146,.18)}.hero:after{content:"";position:absolute;right:-50px;top:-135px;width:390px;height:390px;border:1px solid #ffffff35;border-radius:50%;box-shadow:0 0 0 55px #ffffff0a,0 0 0 120px #ffffff0b;pointer-events:none}.eyebrow{display:inline-block;border-radius:50px;padding:4px 12px;border:1px solid #ffffff70;color:#e7f8ff;font-size:12px;font-weight:700;letter-spacing:.06em}.hero h1{margin:15px 0 10px;font-size:clamp(27px,3vw,40px);line-height:1.33;letter-spacing:-.02em}.hero p{max-width:760px;opacity:.92;margin:0 0 20px}.chips{display:flex;gap:8px;flex-wrap:wrap}.chip{border:1px solid #ffffff60;padding:4px 11px;border-radius:999px;font-size:12px;background:#ffffff16}.content-grid{display:grid;grid-template-columns:220px minmax(0,1fr);gap:28px;align-items:start;margin-top:26px}
+    .sidebar{position:sticky;top:22px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px 13px;box-shadow:var(--shadow)}.sidebar-title{font-size:12px;text-transform:uppercase;font-weight:800;letter-spacing:.1em;color:var(--muted);margin:0 10px 10px}.sidebar a{display:block;padding:8px 10px;color:var(--muted);font-size:13px;border-radius:9px}.sidebar a:hover,.sidebar a.active{background:var(--brand-soft);color:var(--brand);text-decoration:none;font-weight:700}.sidebar .mini{margin:20px 10px 0;font-size:12px;color:var(--muted);line-height:1.7;border-top:1px solid var(--line);padding-top:15px}.main{min-width:0}.section{background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);border-radius:var(--radius);padding:28px 32px;margin-bottom:22px;scroll-margin-top:18px}.section h2{display:flex;align-items:center;gap:11px;font-size:22px;line-height:1.4;margin:0 0 17px;letter-spacing:-.01em}.num{background:var(--brand-soft);color:var(--brand);font-weight:800;font-size:12px;min-width:28px;height:28px;border-radius:9px;display:inline-grid;place-items:center}.section h3{font-size:17px;margin:26px 0 10px}.section p{margin:10px 0}.lead{color:var(--muted);font-size:14px}.strong{font-weight:800;color:var(--brand)}.callout{border-radius:13px;padding:14px 18px;margin:14px 0;background:var(--brand-soft);border-left:4px solid var(--brand)}.callout.warn{background:var(--orange-soft);border-color:var(--orange)}.callout.good{background:var(--teal-soft);border-color:var(--teal)}.callout.bad{background:var(--red-soft);border-color:var(--red)}.callout strong{color:var(--text)}
+    .cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.card{background:var(--muted-surface);border:1px solid var(--line);padding:15px 17px;border-radius:13px}.card h4{margin:0 0 5px;font-size:14px}.card p{margin:0;color:var(--muted);font-size:13px}.stat{display:flex;align-items:flex-end;justify-content:space-between;gap:8px}.stat .value{font-size:27px;line-height:1.2;font-weight:800;color:var(--brand)}.stat .desc{font-size:12px;color:var(--muted)}.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;margin:14px 0}table{width:100%;border-collapse:collapse;min-width:590px;font-size:13px}th,td{text-align:left;padding:11px 13px;border-bottom:1px solid var(--line);vertical-align:top}th{background:var(--muted-surface);white-space:nowrap;color:var(--text)}tbody tr:last-child td{border-bottom:0}code{background:var(--muted-surface);color:var(--brand);border-radius:5px;padding:2px 5px;font-size:.92em}pre{overflow:auto;background:#0d1a2b;color:#e5f4ff;border-radius:12px;margin:13px 0;padding:17px 18px;line-height:1.7;font-size:12px}pre code{padding:0;color:inherit;background:none}.diagram{background:var(--muted-surface);border:1px solid var(--line);border-radius:14px;padding:18px;margin:16px 0}.pipeline{display:grid;grid-template-columns:1fr 22px 1fr 22px 1fr;gap:7px;align-items:center}.node{min-height:92px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:var(--surface);border:1px solid var(--line);border-radius:11px;padding:9px 10px}.node b{font-size:14px}.node small{font-size:11px;color:var(--muted)}.arrow{font-size:19px;text-align:center;color:var(--brand);font-weight:bold}.stream-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.window{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--surface)}.window .w-head{padding:8px 10px;background:var(--brand-soft);color:var(--brand);font-size:12px;font-weight:750;text-align:center}.w-body{padding:12px;display:grid;gap:6px}.order{background:var(--muted-surface);border-radius:7px;padding:6px 7px;font-size:12px;text-align:center}.window .w-foot{padding:9px;background:var(--teal-soft);color:var(--teal);text-align:center;font-size:13px;font-weight:800}.flow{display:flex;gap:10px;align-items:stretch;margin:17px 0}.flow .step{flex:1;background:var(--muted-surface);border:1px solid var(--line);border-radius:11px;padding:12px;text-align:center;min-width:0;font-size:13px}.flow .step b{display:block}.flow .step small{display:block;color:var(--muted)}.flow .join{align-self:center;color:var(--brand);font-weight:800}.branches{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}.branch{border-radius:12px;padding:16px;background:var(--teal-soft);border:1px solid var(--teal);text-align:center}.branch.side{background:var(--orange-soft);border-color:var(--orange)}.branch h4{margin:0 0 7px}.branch p{font-size:12px;margin:4px 0;color:var(--muted)}.branch .big{font-size:18px;font-weight:800;margin-top:8px}.tag{display:inline-block;border-radius:6px;padding:2px 7px;background:var(--brand-soft);color:var(--brand);font-size:11px;font-weight:700}.tag.teal{background:var(--teal-soft);color:var(--teal)}.tag.orange{background:var(--orange-soft);color:var(--orange)}.tag.red{background:var(--red-soft);color:var(--red)}
+    .simcontrols{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-top:14px}.simcontrol{background:var(--muted-surface);border:1px solid var(--line);border-radius:12px;padding:13px}.simcontrol label{display:flex;justify-content:space-between;align-items:center;gap:5px;font-size:12px;font-weight:700}.simcontrol output{font-size:13px;color:var(--brand)}input[type=range]{accent-color:#3479d9;width:100%;margin-top:12px}.timeline{padding:10px 5px 5px}.track{position:relative;height:58px;border-bottom:2px solid var(--line);margin:0 10px 24px}.window-span{position:absolute;left:28.571%;width:28.571%;height:19px;top:19px;background:#3883d333;border:1px solid #3883d3;border-radius:5px}.window-caption{position:absolute;left:31%;top:21px;font-size:10px;color:var(--brand);font-weight:800}.axis{position:absolute;bottom:-22px;font-size:11px;color:var(--muted);transform:translateX(-50%)}.tick{position:absolute;bottom:-4px;height:8px;border-left:1px solid var(--line)}.wmline{position:absolute;top:2px;bottom:-3px;border-left:3px solid var(--orange);transition:left .15s}.wmlabel{position:absolute;top:-14px;left:0;transform:translateX(-50%);background:var(--orange-soft);color:var(--orange);font-size:10px;font-weight:800;padding:1px 5px;border-radius:5px;white-space:nowrap}.simresult{border-radius:12px;padding:14px 16px;margin-top:24px;background:var(--brand-soft);border:1px solid var(--line)}.simresult b{display:block;font-size:16px}.simresult p{margin:5px 0 0;font-size:13px}.simnote{font-size:12px;color:var(--muted)}.flashcards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.flashcard{padding:16px;border:1px solid var(--line);border-radius:12px;background:var(--muted-surface)}.flashcard b{display:block;color:var(--brand);font-size:14px}.flashcard span{display:block;margin-top:5px;font-size:13px}.quiz-item{border:1px solid var(--line);border-radius:13px;padding:18px;margin:12px 0}.quiz-item h4{margin:0 0 9px;font-size:14px}.options{display:grid;grid-template-columns:1fr 1fr;gap:8px}.option{border:1px solid var(--line);border-radius:9px;padding:9px 10px;background:var(--muted-surface);color:var(--text);cursor:pointer;text-align:left;font-size:12px}.option:hover{border-color:var(--brand)}.option.correct{background:var(--teal-soft);border-color:var(--teal);color:var(--text);font-weight:700}.option.wrong{background:var(--red-soft);border-color:var(--red);color:var(--text)}.feedback{font-size:12px;margin-top:10px;display:none;padding:10px 12px;background:var(--brand-soft);border-radius:9px}.feedback.show{display:block}.footer{font-size:12px;color:var(--muted);text-align:center;padding:3px 0 30px}ul,ol{padding-left:22px}li{margin:5px 0}
+    @media(max-width:850px){.content-grid{grid-template-columns:1fr}.sidebar{position:static;display:flex;flex-wrap:wrap;gap:4px;padding:10px}.sidebar-title,.sidebar .mini{display:none}.sidebar a{padding:6px 9px}.hero{padding:29px 25px}.section{padding:23px}.shell{padding:16px 15px 45px}}@media(max-width:570px){.cards,.flashcards,.branches,.simcontrols{grid-template-columns:1fr}.stream-grid{gap:5px}.w-body{padding:5px}.window .w-head{font-size:10px;padding:7px 3px}.order{font-size:10px;padding:5px 3px}.pipeline{grid-template-columns:1fr;gap:4px}.pipeline .arrow{transform:rotate(90deg)}.flow{gap:4px}.flow .step{padding:7px 4px;font-size:11px}.flow .join{font-size:12px}.options{grid-template-columns:1fr}.section{padding:20px 16px}.hero h1{font-size:27px}.topbar{align-items:flex-start}.top-actions{justify-content:flex-end}.btn{padding:7px 9px;font-size:12px}}
+    @media print{body{background:#fff;color:#111;font-size:11px}.shell{max-width:none;padding:0}.hero{background:#203c67!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;box-shadow:none}.sidebar,.top-actions{display:none}.content-grid{display:block}.section{box-shadow:none;break-inside:avoid;border-color:#d9d9d9;margin:13px 0;padding:15px 19px}.section h2{font-size:17px}.simcontrols,.quiz-item{break-inside:avoid}.btn{display:none}.callout,.tag,.branch,.node,.stat,.w-head,.w-foot{print-color-adjust:exact;-webkit-print-color-adjust:exact}a{color:#1a4c9b}.hero:after{display:none}}
+  </style>
+</head>
+<body>
+<div class="shell">
+  <div class="topbar">
+    <div class="brandmark"><span class="logo">F</span><span>Flink · 复习笔记</span></div>
+    <div class="top-actions">
+      <button class="btn" id="themeBtn" type="button" aria-label="切换深色模式">☾ 深色模式</button>
+      <button class="btn" type="button" onclick="window.print()">⎙ 打印 / 保存 PDF</button>
+    </div>
+  </div>
+
+  <header class="hero">
+    <span class="eyebrow">从 0 到能答面试题 · 离线可用</span>
+    <h1>Flink 实时计算复习手册</h1>
+    <p>把 Flink CDC、Window、Watermark、乱序、Allowed Lateness、Side Output 串成一条完整的理解链。先看例子，再理解机制，最后做自测。</p>
+    <div class="chips"><span class="chip">CDC</span><span class="chip">Window</span><span class="chip">Event Time</span><span class="chip">Watermark</span><span class="chip">Allowed Lateness</span><span class="chip">Side Output</span></div>
+  </header>
+
+  <div class="content-grid">
+    <nav class="sidebar" aria-label="文档导航">
+      <div class="sidebar-title">目录 · 快速跳转</div>
+      <a href="#overview">00 / 一页总览</a>
+      <a href="#metrics">01 / 电商指标</a>
+      <a href="#cdc">02 / Flink CDC</a>
+      <a href="#window">03 / Window 窗口</a>
+      <a href="#eventtime">04 / Event Time</a>
+      <a href="#watermark">05 / Watermark</a>
+      <a href="#lateness">06 / Allowed Lateness</a>
+      <a href="#sideoutput">07 / Side Output</a>
+      <a href="#simulator">08 / 交互时间线</a>
+      <a href="#mistakes">09 / 易错点</a>
+      <a href="#memorize">10 / 速记表</a>
+      <a href="#quiz">11 / 自测题</a>
+      <div class="mini">学习顺序：<br>数据从哪里来 → 怎么按时间分组 → 什么时候出结果 → 迟到了怎么办</div>
+    </nav>
+
+    <main class="main">
+      <section class="section" id="overview">
+        <h2><span class="num">00</span> 一页看懂整条链路</h2>
+        <div class="callout"><strong>核心问题：</strong>订单不断产生，但可能乱序或迟到。Flink 怎么实时、尽可能准确地统计每 10 秒的 GMV？</div>
+        <div class="diagram">
+          <div class="pipeline">
+            <div class="node"><b>MySQL</b><small>订单新增 / 更新</small></div><div class="arrow">→</div>
+            <div class="node"><b>Flink CDC</b><small>读取变更 / Binlog</small></div><div class="arrow">→</div>
+            <div class="node"><b>Flink</b><small>窗口 + Watermark</small></div>
+          </div>
+          <div style="text-align:center;color:var(--brand);font-size:20px;margin:4px">↓</div>
+          <div class="branches">
+            <div class="branch"><h4>正常聚合结果</h4><p>按窗口计算 GMV</p><div class="big">→ Doris / 大屏</div></div>
+            <div class="branch side"><h4>太晚的数据（可选）</h4><p>过期订单进入 Side Output</p><div class="big">→ 补偿处理</div></div>
+          </div>
+        </div>
+        <p><b>一句话：</b>CDC 负责「感知变化」，Window 负责「按时间分组」，Watermark 负责「推进事件时间、触发窗口」，Allowed Lateness 负责「有限补算」，Side Output 负责「分流特殊数据」。</p>
+      </section>
+
+      <section class="section" id="metrics">
+        <h2><span class="num">01</span> 先记住业务指标：PV / UV / GMV</h2>
+        <div class="cards">
+          <div class="card"><div class="stat"><div><h4>PV · Page View</h4><div class="desc">页面浏览次数</div></div><div class="value">18</div></div><p>3 人分别浏览 10、5、3 次 → PV = 18。</p></div>
+          <div class="card"><div class="stat"><div><h4>UV · Unique Visitor</h4><div class="desc">独立访客数</div></div><div class="value">3</div></div><p>同样的 3 个人 → UV = 3（按某个统计周期去重）。</p></div>
+        </div>
+        <div class="table-wrap"><table><thead><tr><th>指标</th><th>通俗理解</th><th>注意</th></tr></thead><tbody>
+          <tr><td><b>PV</b></td><td>页面被看了几次</td><td>一个人可以产生多次 PV</td></tr>
+          <tr><td><b>UV</b></td><td>来了几个不同访客</td><td>依赖用户 / 设备识别和统计周期</td></tr>
+          <tr><td><b>加购</b></td><td>把商品放进购物车</td><td>可能统计人数，也可能统计次数</td></tr>
+          <tr><td><b>购买</b></td><td>下单或支付成功</td><td>必须明确业务口径</td></tr>
+          <tr><td><b>GMV</b></td><td>商品交易总额</td><td>不等于利润；退款处理看口径</td></tr>
+          <tr><td><b>转化漏斗</b></td><td>浏览 → 加购 → 购买</td><td>用来找出流失环节</td></tr>
+        </tbody></table></div>
+        <div class="callout good"><b>快速区分：</b>PV 是「次数」，UV 是「人数」。如果 1000 人来店铺、50 人购买，按购买人数统计的访客购买转化率就是 50 ÷ 1000 = <b>5%</b>。</div>
+      </section>
+
+      <section class="section" id="cdc">
+        <h2><span class="num">02</span> Flink CDC：实时发现数据变化</h2>
+        <p><b>CDC = Change Data Capture（变更数据捕获）。</b>Flink CDC 常用于把数据库的新增、修改、删除持续同步到其他数据系统。</p>
+        <div class="table-wrap"><table><thead><tr><th>数据库动作</th><th>CDC 捕获的变化</th><th>例子</th></tr></thead><tbody>
+          <tr><td><code>INSERT</code></td><td>新增记录</td><td>新订单产生</td></tr>
+          <tr><td><code>UPDATE</code></td><td>更新记录</td><td>订单从未支付变成已支付</td></tr>
+          <tr><td><code>DELETE</code></td><td>删除记录</td><td>订单记录被删除</td></tr>
+        </tbody></table></div>
+        <pre><code>UPDATE orders
+SET status = 'PAID'
+WHERE id = 1001;</code></pre>
+        <p>对于 MySQL，CDC 通常先读取已有数据的<b>快照</b>，再持续读取 <b>Binlog</b> 中的增量变更。</p>
+        <div class="callout"><strong>区别：</strong>Flink CDC 重点解决「数据库变化怎么被持续读取、同步」；Flink 的流计算负责「如何过滤、分组、聚合、计算」。两者常配合使用。</div>
+      </section>
+
+      <section class="section" id="window">
+        <h2><span class="num">03</span> Window：把无限数据按时间分组</h2>
+        <p>订单会不断到来，不可能等所有数据都到齐才统计。<b>Window（窗口）</b>让我们统计某一个时间范围内的数据。</p>
+        <div class="diagram"><div class="stream-grid">
+          <div class="window"><div class="w-head">窗口 1 · [0,10)s</div><div class="w-body"><div class="order">订单 ¥100</div><div class="order">订单 ¥200</div><div class="order">订单 ¥50</div></div><div class="w-foot">GMV ¥350</div></div>
+          <div class="window"><div class="w-head">窗口 2 · [10,20)s</div><div class="w-body"><div class="order">订单 ¥300</div><div class="order">订单 ¥100</div><div class="order">订单 ¥80</div></div><div class="w-foot">GMV ¥480</div></div>
+          <div class="window"><div class="w-head">窗口 3 · [20,30)s</div><div class="w-body"><div class="order">订单 ¥50</div><div class="order">订单 ¥70</div><div class="order">订单 ¥100</div></div><div class="w-foot">GMV ¥220</div></div>
+        </div></div>
+        <div class="table-wrap"><table><thead><tr><th>窗口类型</th><th>特点</th><th>例子</th></tr></thead><tbody>
+          <tr><td><b>Tumbling</b> 滚动</td><td>不重叠、固定大小</td><td>[0,10)、[10,20)、[20,30)</td></tr>
+          <tr><td><b>Sliding</b> 滑动</td><td>可以重叠，同一数据可能属于多个窗口</td><td>每 5 秒统计最近 10 秒</td></tr>
+          <tr><td><b>Session</b> 会话</td><td>按一段无活动间隔来划分</td><td>用户连续操作视为一次会话</td></tr>
+        </tbody></table></div>
+        <p class="lead">这里的 [10,20) 是数学上的左闭右开区间：包括第 10 秒，不包括第 20 秒。</p>
+      </section>
+
+      <section class="section" id="eventtime">
+        <h2><span class="num">04</span> Event Time：先区分「发生」和「到达」</h2>
+        <div class="table-wrap"><table><thead><tr><th>订单</th><th>事件发生时间（Event Time）</th><th>Flink 收到的时间</th></tr></thead><tbody>
+          <tr><td>A</td><td>10:00:01</td><td>10:00:02</td></tr>
+          <tr><td>B</td><td>10:00:04</td><td>10:00:05</td></tr>
+          <tr><td>C</td><td>10:00:03</td><td>10:00:08</td></tr>
+        </tbody></table></div>
+        <p>C 的发生时间比 B 早，但收到得比 B 晚，这叫<b>乱序到达（Out-of-order）</b>。</p>
+        <div class="cards">
+          <div class="card"><h4>Event Time · 事件时间</h4><p>订单<b>真实发生</b>的时间。事件时间窗口按它来决定归属。</p></div>
+          <div class="card"><h4>Processing Time · 处理时间</h4><p>Flink <b>处理记录</b>时的系统时间。处理时间窗口的行为与事件时间窗口不同。</p></div>
+        </div>
+        <div class="callout good"><strong>重要：</strong>在 Event Time 滚动窗口中，事件时间是第 8 秒的订单，<b>永远归属于 [0,10) 这个窗口</b>；即使第 25 秒才到，也不会自动改投 [20,30) 窗口。</div>
+      </section>
+
+      <section class="section" id="watermark">
+        <h2><span class="num">05</span> Watermark：告诉 Flink 事件时间推进到哪里了</h2>
+        <p>不能要求数据严格按事件时间到达。Flink 使用 <b>Watermark（水位线）</b>表示事件时间进度，用于触发事件时间定时器和窗口计算。</p>
+        <div class="callout"><b>直觉：</b>Watermark = 20 秒，表示系统认为「事件时间早于大约 20 秒的记录通常应该到得差不多了」，但<b>不是保证不会再来</b>。</div>
+        <h3>常见的有界乱序策略</h3>
+        <pre><code>最大已观察事件时间：25 秒
+允许乱序程度：       5 秒
+Watermark：          约 20 秒</code></pre>
+        <p class="lead">为便于理解，示例省略毫秒级边界细节；实际 Flink 的有界乱序 Watermark 生成实现通常涉及约 1 毫秒的边界偏移。</p>
+        <div class="flow"><div class="step"><b>事件时间最大值</b><small>25 秒</small></div><div class="join">−</div><div class="step"><b>乱序容忍</b><small>5 秒</small></div><div class="join">≈</div><div class="step"><b>Watermark</b><small>20 秒</small></div></div>
+        <p>当 Watermark 推进到窗口结束边界附近（更准确地说，达到窗口最大时间戳）时，默认事件时间触发器会让该窗口首次计算。</p>
+        <div class="callout warn"><strong>常见误解：</strong>「Watermark 延迟 5 秒」<b>不等于</b>机器收到一条数据后固定等 5 秒。它描述的是基于<b>事件时间</b>的进度滞后。</div>
+        <p class="lead">补充：多分区并行处理时，算子的有效 Watermark 还可能受慢分区影响；Watermark 的推进也依赖生成与传递机制，不一定每条数据都立刻更新。</p>
+      </section>
+
+      <section class="section" id="lateness">
+        <h2><span class="num">06</span> Allowed Lateness：首次出结果后还能补算</h2>
+        <p>窗口首次触发后，可能还有属于它的订单到达。<b>Allowed Lateness（允许迟到）</b>用于让事件时间窗口在额外一段事件时间范围内继续接受晚到记录。</p>
+        <div class="cards">
+          <div class="card"><h4>Watermark 延迟</h4><p>主要目的是<b>推迟首次触发</b>，给乱序数据更多时间到来。</p></div>
+          <div class="card"><h4>Allowed Lateness</h4><p>主要目的是<b>首次触发后继续保留窗口</b>，允许晚到数据更新结果。</p></div>
+        </div>
+        <h3>同一窗口如何从 ¥500 变成 ¥600？</h3>
+        <div class="flow"><div class="step"><b>首次输出</b><small>GMV = ¥500</small></div><div class="join">→</div><div class="step"><b>迟到一笔订单</b><small>+ ¥100</small></div><div class="join">→</div><div class="step"><b>再次输出</b><small>GMV = ¥600</small></div></div>
+        <div class="callout good"><b>例子：</b>窗口为 <code>[10,20)</code>、Allowed Lateness 为 <b>10 秒</b>。窗口约在 WM 到达 20 秒时首次触发；当 WM 仍未达到约 30 秒的清理界限时，迟到记录通常还能更新它；到达清理界限后则太晚。</div>
+        <p class="lead">注意：这里的「10 秒」是按 Watermark 所表示的事件时间计算，不是现实时间里固定再等 10 秒。具体行为以窗口类型、触发器和 API 为准；此处指常见的 DataStream Event Time 窗口。</p>
+      </section>
+
+      <section class="section" id="sideoutput">
+        <h2><span class="num">07</span> Side Output：给特殊数据开一条支线</h2>
+        <p><b>Side Output（侧输出）</b>是在主数据流之外额外输出一条（或多条）流。常用于接收<b>超过允许迟到期限的数据</b>、脏数据、异常事件等。</p>
+        <div class="branches">
+          <div class="branch"><span class="tag teal">主输出 · Main Output</span><h4>正常窗口计算</h4><p>如 [10,20) GMV</p><div class="big">¥1,000</div><p>写 Doris / 实时大屏</p></div>
+          <div class="branch side"><span class="tag orange">侧输出 · Side Output</span><h4>过期迟到订单</h4><p>事件时间在 17 秒，现已太晚</p><div class="big">+ ¥100</div><p>写补偿流 / 告警 / 存档</p></div>
+        </div>
+        <h3>DataStream Java API（示意）</h3>
+        <pre><code>// 为迟到订单准备一个侧输出标签
+OutputTag&lt;Order&gt; lateTag =
+    new OutputTag&lt;Order&gt;("late-orders") {};
+
+// 假设 orderStream 已设置事件时间戳和 Watermark
+SingleOutputStreamOperator&lt;Order&gt; result = orderStream
+    .keyBy(order -&gt; order.userId)
+    .window(TumblingEventTimeWindows.of(Time.seconds(10)))
+    .allowedLateness(Time.seconds(5))
+    .sideOutputLateData(lateTag)
+    .sum("amount");
+
+// 获取已经超过窗口清理期限的记录
+DataStream&lt;Order&gt; lateOrders = result.getSideOutput(lateTag);</code></pre>
+        <p class="lead">这是常见 DataStream API 写法的概念示例；具体 Flink 版本、Order 类型字段、Watermark 配置等需与项目匹配。</p>
+        <div class="callout warn"><strong>注意：</strong>Side Output <b>不会自动补算 GMV</b>，也不会自动落库。只有给侧输出流接上后续处理逻辑，数据才能进一步补偿或保存。若未配置侧输出，过期迟到记录通常会被丢弃。</div>
+      </section>
+
+      <section class="section" id="simulator">
+        <h2><span class="num">08</span> 动手试试：改变 Watermark，订单会去哪？</h2>
+        <p>固定一个事件时间在 <b>17 秒</b>的订单，它属于窗口 <code>[10,20)</code>。假设这条订单<b>现在才到</b>，试着修改下方参数。</p>
+        <div class="simcontrols">
+          <div class="simcontrol"><label for="maxEvent">当前最大事件时间 <output id="maxVal">25s</output></label><input id="maxEvent" type="range" min="15" max="40" step="1" value="25"></div>
+          <div class="simcontrol"><label for="delay">Watermark 乱序容忍 <output id="delayVal">5s</output></label><input id="delay" type="range" min="0" max="15" step="1" value="5"></div>
+          <div class="simcontrol"><label for="late">Allowed Lateness <output id="lateVal">10s</output></label><input id="late" type="range" min="0" max="20" step="1" value="10"></div>
+        </div>
+        <div class="diagram">
+          <p style="margin:0 0 9px;font-weight:700;font-size:13px">事件时间轴 <span style="font-weight:400;color:var(--muted)">（单位：秒）</span></p>
+          <div class="timeline"><div class="track">
+            <div class="window-span"></div><div class="window-caption">窗口 [10,20)</div>
+            <div class="wmline" id="wmline" style="left:57.14%"><span class="wmlabel" id="wmlabel">WM 20s</span></div>
+            <span class="tick" style="left:0%"></span><span class="axis" style="left:0%">0</span>
+            <span class="tick" style="left:28.571%"></span><span class="axis" style="left:28.571%">10</span>
+            <span class="tick" style="left:57.142%"></span><span class="axis" style="left:57.142%">20</span>
+            <span class="tick" style="left:85.714%"></span><span class="axis" style="left:85.714%">30</span>
+            <span class="tick" style="left:100%"></span><span class="axis" style="left:100%">35</span>
+          </div></div>
+          <div class="simresult" id="simResult" aria-live="polite"><b>等待计算…</b><p>模拟状态将显示在这里。</p></div>
+          <p class="simnote">模型简化：Watermark ≈ 最大事件时间 − 乱序容忍；假设默认事件时间触发器、窗口 [10,20) 已有聚合状态，且只有一个有效 Watermark。边界按整秒近似。</p>
+        </div>
+        <div class="callout"><b>自己试：</b>保持最大事件时间 25s，乱序容忍改成 0s，再改成 10s；之后把 Allowed Lateness 改成 0s。看看同一笔事件时间为 17s 的订单，在不同参数下如何处理。</div>
+      </section>
+
+      <section class="section" id="mistakes">
+        <h2><span class="num">09</span> 高频易错点（面试很常问）</h2>
+        <div class="table-wrap"><table><thead><tr><th>常见误解</th><th>正确理解</th></tr></thead><tbody>
+          <tr><td>❌ 迟到订单会被放进下一个窗口</td><td>✅ <b>事件时间决定窗口归属</b>，不会因为到达晚就自动改窗口</td></tr>
+          <tr><td>❌ Watermark = 20，表示 20 秒之前数据绝不再来</td><td>✅ Watermark 只是<b>时间进度判断</b>，不是绝对保证</td></tr>
+          <tr><td>❌ Watermark 延迟就是实际睡眠等待 N 秒</td><td>✅ 它通常是<b>事件时间进度</b>落后最大已观察事件时间 N 秒</td></tr>
+          <tr><td>❌ Allowed Lateness 是第一次计算之前额外等 N 秒</td><td>✅ 它主要影响<b>首次触发之后</b>能否继续接受晚到数据</td></tr>
+          <tr><td>❌ Side Output 只能输出迟到数据</td><td>✅ 它是<b>通用的分流机制</b>，也能处理脏数据、异常事件</td></tr>
+          <tr><td>❌ Side Output 会自动修正结果</td><td>✅ 侧输出只是拿到另一条流；<b>补偿逻辑需要自己写</b></td></tr>
+          <tr><td>❌ GMV 就是利润</td><td>✅ GMV 是交易总额，<b>不等于利润</b></td></tr>
+        </tbody></table></div>
+        <h3>用同一笔订单串起来</h3>
+        <ol>
+          <li>订单在<b>事件时间 17 秒</b>发生，属于 <code>[10,20)</code>。</li>
+          <li>Watermark 超过 20 秒附近时，窗口通常已首次输出结果。</li>
+          <li>若 Allowed Lateness = 10 秒、WM 仍小于约 30 秒，订单可以进入<b>原窗口</b>，触发补算。</li>
+          <li>若 WM 已达到约 30 秒的清理边界，订单已经<b>太晚</b>，可配置进入 Side Output。</li>
+          <li>无论迟到多严重，都不会仅因迟到就被转入 <code>[20,30)</code>。</li>
+        </ol>
+      </section>
+
+      <section class="section" id="memorize">
+        <h2><span class="num">10</span> 最终速记卡：30 秒恢复记忆</h2>
+        <div class="flashcards">
+          <div class="flashcard"><b>Flink CDC</b><span>感知数据库的 INSERT、UPDATE、DELETE，把变更持续读取出来。</span></div>
+          <div class="flashcard"><b>Window</b><span>把无限数据按时间或会话等规则划分，分别统计。</span></div>
+          <div class="flashcard"><b>Event Time</b><span>事件真正发生的时间，决定它属于哪个事件时间窗口。</span></div>
+          <div class="flashcard"><b>Watermark</b><span>推进事件时间，决定事件时间窗口何时可以触发。</span></div>
+          <div class="flashcard"><b>Watermark 乱序容忍</b><span>让 Watermark 落后观察到的事件时间，给乱序数据留空间。</span></div>
+          <div class="flashcard"><b>Allowed Lateness</b><span>首次输出之后，窗口仍可接收一段范围内的迟到数据并更新。</span></div>
+          <div class="flashcard"><b>Side Output</b><span>主流之外的数据分流，例如过期迟到订单、异常数据。</span></div>
+          <div class="flashcard"><b>PV vs UV</b><span>PV 看页面浏览次数；UV 看独立访客数。</span></div>
+        </div>
+        <div class="callout good"><strong>面试一口气答：</strong>Flink CDC 抓取数据库变更；事件按 Event Time 进入对应 Window；Watermark 推进事件时间并触发计算；如果窗口首次触发后有迟到数据，Allowed Lateness 决定是否还能修正；超过期限的数据可通过 Side Output 分流处理。</div>
+        <button class="btn primary" id="copyBtn" type="button">复制速记版</button>
+      </section>
+
+      <section class="section" id="quiz">
+        <h2><span class="num">11</span> 复习自测：点选答案</h2>
+        <p class="lead">不用背定义，能答对这些题才算真的理解。</p>
+        <div class="quiz-item" data-answer="1" data-explain="事件时间为第 8 秒，所以属于 [0,10)；迟到不改变所属窗口。"><h4>1. 订单发生在第 8 秒、第 25 秒才到。事件时间滚动窗口大小为 10 秒，它属于哪个窗口？</h4><div class="options"><button class="option">A. [20,30)</button><button class="option">B. [0,10)</button><button class="option">C. [10,20)</button><button class="option">D. 一定丢弃</button></div><div class="feedback"></div></div>
+        <div class="quiz-item" data-answer="2" data-explain="Watermark 表示事件时间进度，不保证早期事件绝不再到。"><h4>2. Watermark 推进到 20 秒，说明什么？</h4><div class="options"><button class="option">A. 20 秒之前的事件绝不可能到达</button><button class="option">B. 现实时间一定是第 20 秒</button><button class="option">C. 事件时间已推进到约 20 秒，可触发相应计算</button><button class="option">D. 所有窗口都已关闭</button></div><div class="feedback"></div></div>
+        <div class="quiz-item" data-answer="0" data-explain="Allowed Lateness 让窗口首次触发后，还能在规定范围内接收晚到数据。"><h4>3. Allowed Lateness 的核心作用是什么？</h4><div class="options"><button class="option">A. 允许晚到数据更新已触发的原窗口</button><button class="option">B. 将迟到数据放入下一个窗口</button><button class="option">C. 强制数据按顺序到达</button><button class="option">D. 将 PV 转换成 UV</button></div><div class="feedback"></div></div>
+        <div class="quiz-item" data-answer="3" data-explain="Side Output 只是另一条数据流；想要补偿，需要自己配置后续处理。"><h4>4. 超出允许迟到期限的订单进入 Side Output 后，会怎样？</h4><div class="options"><button class="option">A. 自动写回 MySQL</button><button class="option">B. 自动更新原窗口 GMV</button><button class="option">C. 自动归入下一个窗口</button><button class="option">D. 进入侧输出流，由后续逻辑处理</button></div><div class="feedback"></div></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap"><b id="score">已作答：0 / 4</b><button class="btn" id="resetQuiz" type="button">重新测试</button></div>
+      </section>
+      <div class="footer">本页为学习复习版，脱机可用 · 示例基于常见 Flink DataStream 事件时间滚动窗口语义，不同版本 / API 的细节可能不同。</div>
+    </main>
+  </div>
+</div>
+<script>
+(function(){
+  const root=document.documentElement;
+  const themeBtn=document.getElementById('themeBtn');
+  const pref=(()=>{try{return localStorage.getItem('flink-study-theme')}catch(e){return null}})();
+  let dark=pref ? pref==='dark' : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  function applyTheme(){root.dataset.theme=dark?'dark':'light';themeBtn.textContent=dark?'☀ 浅色模式':'☾ 深色模式'}
+  applyTheme();themeBtn.addEventListener('click',()=>{dark=!dark;applyTheme();try{localStorage.setItem('flink-study-theme',dark?'dark':'light')}catch(e){}});
+  const maxInput=document.getElementById('maxEvent'), delayInput=document.getElementById('delay'), lateInput=document.getElementById('late');
+  function updateSim(){
+    const mx=+maxInput.value,dl=+delayInput.value,lt=+lateInput.value,wm=mx-dl;
+    document.getElementById('maxVal').textContent=mx+'s';document.getElementById('delayVal').textContent=dl+'s';document.getElementById('lateVal').textContent=lt+'s';
+    const v=Math.max(0,Math.min(100,wm/35*100));document.getElementById('wmline').style.left=v+'%';document.getElementById('wmlabel').textContent='WM '+wm+'s';
+    const el=document.getElementById('simResult');let title,body,color;
+    if(wm<20){title='① 正常进入原窗口（尚未首次触发）';body='当前 WM = '+wm+'s，小于窗口结束边界 20s。事件时间 17s 的订单进入 [10,20)，等待该窗口首次计算。';color='var(--brand-soft)'}
+    else if(wm<20+lt){title='② 晚到了，但仍能更新原窗口';body='当前 WM = '+wm+'s，窗口已首次触发；清理界限约 '+(20+lt)+'s 尚未达到。订单仍属于 [10,20)，可以触发补算。';color='var(--teal-soft)'}
+    else{title='③ 太晚：可进入侧输出（不会转到下一个窗口）';body='当前 WM = '+wm+'s，已达到约 '+(20+lt)+'s 的清理界限。若配置 sideOutputLateData，就可以把这笔订单发送到侧输出流。';color='var(--orange-soft)'}
+    el.style.background=color;el.innerHTML='<b>'+title+'</b><p>'+body+'</p>';
+  }
+  [maxInput,delayInput,lateInput].forEach(x=>x.addEventListener('input',updateSim));updateSim();
+  document.getElementById('copyBtn').addEventListener('click',async()=>{
+    const value='Flink 速记\nCDC：捕获数据库 INSERT / UPDATE / DELETE 变更。\nWindow：将无限数据按时间等规则分组统计。\nEvent Time：事件真正发生的时间，决定事件时间窗口归属。\nWatermark：推进事件时间，触发窗口计算；不是绝对保证。\nWatermark 乱序容忍：让时间进度落后最大已观察事件时间。\nAllowed Lateness：窗口首次触发后，仍可接收范围内的迟到数据并补算。\nSide Output：特殊数据分流，过期迟到数据可交给后续补偿逻辑。\n关键：迟到不会让 Event Time 记录自动进入下一个窗口。';
+    try{await navigator.clipboard.writeText(value);document.getElementById('copyBtn').textContent='✓ 已复制';setTimeout(()=>document.getElementById('copyBtn').textContent='复制速记版',1800)}catch(e){const ta=document.createElement('textarea');ta.value=value;document.body.appendChild(ta);ta.select();const ok=document.execCommand('copy');ta.remove();document.getElementById('copyBtn').textContent=ok?'✓ 已复制':'复制失败，请手动选择文字'}
+  });
+  const questions=[...document.querySelectorAll('.quiz-item')];
+  function updateScore(){const answered=questions.filter(q=>q.dataset.selected!==undefined);const score=answered.filter(q=>+q.dataset.selected===+q.dataset.answer).length;document.getElementById('score').textContent='已作答：'+answered.length+' / '+questions.length+' ｜ 答对：'+score+' 题'}
+  questions.forEach(q=>{const buttons=[...q.querySelectorAll('.option')];buttons.forEach((btn,i)=>btn.addEventListener('click',()=>{q.dataset.selected=i;buttons.forEach((b,j)=>{b.classList.toggle('correct',j===+q.dataset.answer);b.classList.toggle('wrong',j===i && j!==+q.dataset.answer)});const right=i===+q.dataset.answer;const f=q.querySelector('.feedback');f.classList.add('show');f.textContent=(right?'✓ 回答正确。':'✗ 这题选错了。')+q.dataset.explain;updateScore()}))});
+  document.getElementById('resetQuiz').addEventListener('click',()=>{questions.forEach(q=>{delete q.dataset.selected;q.querySelectorAll('.option').forEach(b=>b.classList.remove('correct','wrong'));const f=q.querySelector('.feedback');f.textContent='';f.classList.remove('show')});updateScore()});
+  const links=[...document.querySelectorAll('.sidebar a')];const targets=links.map(a=>document.querySelector(a.getAttribute('href')));
+  if('IntersectionObserver' in window){const ob=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){links.forEach(x=>x.classList.remove('active'));const ix=targets.indexOf(e.target);if(ix>=0)links[ix].classList.add('active')}})},{rootMargin:'-8% 0px -75% 0px'});targets.forEach(t=>t&&ob.observe(t))}
+})();
+</script>
+</body>
+</html>
