@@ -61,6 +61,7 @@ except Exception:
 subprocess.run(['systemctl', 'reload', 'nginx'], check=True)
 
 work = {
+    'github': 'https://github.com/Learner-Lee/2025-blog-public/tree/main/module/ai-sub',
     'id': 'ai-sub', 'name': 'AI-Sub · AI 知识收集', 'year': 2026,
     'tagline': '把 AI 产品更新与技术博客收进一个阅读空间。搜索、筛选、收藏，慢慢消化值得关注的内容。',
     'image': '/ai-sub/cover.svg', 'demo': 'https://web.alenli.cn/ai-sub/',

@@ -82,6 +82,7 @@ if 'location /quickdrop/' not in config:
 subprocess.run(['nginx', '-t'], check=True)
 
 work = {
+    'github': 'https://github.com/Learner-Lee/2025-blog-public/tree/main/module/quickdrop',
     'id': 'quickdrop', 'name': 'QuickDrop · 网页互传', 'year': 2026,
     'tagline': '手机与电脑，打开网页就能互传文件和文字。无需安装，不在服务器保存文件。',
     'image': '/quickdrop/cover.svg', 'demo': 'https://web.alenli.cn/quickdrop/',
