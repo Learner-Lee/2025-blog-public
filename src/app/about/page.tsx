@@ -1,21 +1,11 @@
-import { promises as fs } from 'fs'
-import path from 'path'
 import AboutClient from './about-client'
-import type { AboutData } from './services/push-about'
-import initialData from './list.json'
+import { getAboutData } from './get-about-data'
 
-async function getLiveAboutData(): Promise<AboutData> {
-	try {
-		const raw = await fs.readFile(path.join(process.cwd(), 'public', 'data', 'about.json'), 'utf-8')
-		const parsed = JSON.parse(raw)
-		// 旧版 about.json 没有 works 字段
-		return { ...parsed, works: parsed.works ?? [] }
-	} catch {
-		return initialData as AboutData
-	}
-}
+export const dynamic = 'force-dynamic'
 
-export default async function Page() {
-	const data = await getLiveAboutData()
-	return <AboutClient initialData={data} />
+export default async function Page({ searchParams }: { searchParams: Promise<{ work?: string }> }) {
+	const data = await getAboutData()
+	const { work } = await searchParams
+	const selected = typeof work === 'string' && data.works.some(entry => entry.id === work) ? work : null
+	return <AboutClient initialData={data} initialExpandedId={selected} />
 }

@@ -1,0 +1,24 @@
+[Unit]
+Description=QuickDrop encrypted browser transfer
+After=network.target
+
+[Service]
+Type=simple
+User=quickdrop
+Group=quickdrop
+WorkingDirectory=/storage/blog/2025-blog-public/module/quickdrop
+Environment=NODE_ENV=production
+EnvironmentFile=/etc/quickdrop.env
+ExecStart=/usr/bin/node server.js
+Restart=on-failure
+RestartSec=3
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+MemoryMax=256M
+TasksMax=64
+
+[Install]
+WantedBy=multi-user.target

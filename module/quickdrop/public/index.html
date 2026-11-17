@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f5f5f0"><meta name="description" content="手机与电脑，打开网页就能互传文件和文字。无需安装，不在服务器保存文件。"><title>QuickDrop · 文件，轻松到另一端</title><link rel="stylesheet" href="./style.css"><script type="module" src="./app.js"></script></head>
+<body>
+<header><a class="brand" href="./"><span class="brand-icon">↗</span> QuickDrop<span class="beta">BETA</span></a><a class="back" href="/about">← 返回作品展示</a></header>
+<main>
+  <section class="intro"><div class="eyebrow">从这台，到那台。</div><h1>文件，轻松到另一端<span>。</span></h1><p>手机与电脑之间，少一点折腾。<br class="mobile-break">打开网页，扫码，就能传。</p><div class="features"><span>无需安装</span><span>加密传输</span><span>不在服务器保存文件</span></div></section>
+  <div id="notice" class="notice" role="status" hidden></div>
+  <div class="workspace">
+    <section class="panel pairing"><div class="section-head"><h2><span class="step">01</span> 连接另一台设备</h2><span id="status" class="status" role="status">连接中</span></div>
+      <div class="devices"><div><span class="device">▣</span><strong>这台设备</strong><small>当前浏览器</small></div><div class="connection-line"><span>··········</span><i id="connection-dot"></i></div><div><span class="device">▯</span><strong id="peer-name">另一台设备</strong><small id="peer-status">等待加入</small></div></div>
+      <div id="pair-content"><div class="qr-wrap"><img id="qr" width="180" height="180" alt="用另一台设备扫码加入房间" hidden><span id="qr-loading">正在创建房间…</span></div><p class="center muted">用另一台设备的相机扫码<br>或复制链接，在它的浏览器中打开</p><div class="link-row"><input id="pair-link" aria-label="配对链接" readonly placeholder="配对链接准备中"><button id="copy-link" class="secondary" disabled>复制</button></div></div>
+      <div id="verification" class="verification" hidden><p>核对两台设备显示的配对码</p><strong id="sas">··· ···</strong><p class="muted">两边一致后，分别点击确认</p><button id="verify" class="primary">配对码一致，确认连接</button></div>
+      <div id="connected-info" class="connected-info" hidden><span class="check">✓</span><h3>连接好了，开始传吧</h3><p id="network-path" class="muted">加密通道已建立</p></div>
+      <div class="pair-footer"><small id="room-expiry">临时房间，仅容纳两台设备</small><button id="new-room" class="text-button">新建房间 ↻</button></div>
+    </section>
+    <div class="send-column"><section class="panel"><div class="section-head"><h2><span class="step">02</span> 发送文件</h2><span class="muted small">单文件 ≤ 512 MiB</span></div><label id="dropzone" class="dropzone disabled"><input id="files" type="file" multiple disabled><span class="upload-icon">↑</span><strong>选择文件，或拖到这里</strong><span class="muted">照片、视频、文档，都可以</span><span id="file-hint" class="file-hint">连接并确认配对后即可发送</span></label><div id="outgoing" aria-live="polite"></div><div class="source-hint"><span class="source-icon">↳</span><div><strong>微信 / QQ 里的文件也能传</strong><p>先将聊天中的文件保存到手机，再点上方选择文件。<br>微信内打开时，建议选择“在浏览器中打开”。</p></div></div></section>
+    <section class="panel text-panel"><div class="section-head"><h2>也可以，传一段文字</h2><span id="text-count" class="muted small">0 / 32 KiB</span></div><label class="sr-only" for="text">要发送的文字或链接</label><textarea id="text" rows="3" placeholder="网址、便签，或一段想在另一台设备打开的文字…" disabled></textarea><div class="text-actions"><span class="muted small">文字通过加密通道发送</span><button id="send-text" class="primary" disabled>发送文字 ↗</button></div></section></div>
+  </div>
+  <section class="panel inbox"><div class="section-head"><h2><span class="inbox-icon">↓</span> 收到的内容</h2><span id="retained-hint" class="muted small">仅保留在当前页面</span></div><div id="inbox"><div id="empty-inbox" class="empty-inbox">另一台设备发来的文件和文字，会出现在这里。</div></div></section>
+  <details class="help"><summary>第一次使用？看看怎么传</summary><ol><li>两台设备打开 QuickDrop，用同一配对链接加入房间。</li><li>核对两端的六位配对码，并分别确认。</li><li>一次选择多个文件时，对方只需确认接收整组一次。文件明细默认折叠，可按需展开。</li><li>整组传完并校验后，点击“打包下载 ZIP”；解压后是一个文件夹。单个文件仍可直接下载。</li></ol><p>单文件上限 512 MiB，每组最多 1024 MiB、50 个文件。一次选择超过组容量或数量时，会按文件名自然顺序自动拆成多组，依次发送；每组只需确认一次。同名文件打包时会自动编号，避免覆盖。文件下载保存后，可点击任务内的“释放缓存”回收本页内存。双方需刷新到新版页面后使用新的大小限制和自动分组。</p><p>微信：打开文件 → 右上角菜单 → 用其他应用打开 / 保存到“文件”（以版本实际菜单为准）。QQ：先下载文件，再保存或使用“其他应用打开”。安卓若选择器找不到聊天文件，可先保存到 Download 等系统目录。</p><p>双方需保持页面打开。接收文件与打包操作均在浏览器内存中进行，关闭页面后无法继续下载。跨网络直连不可用时会尝试中继；中继同样传输加密数据。网络切换或手机锁屏可能中断传输，当前不支持断点续传。</p></details>
+</main><footer><span class="brand-footer">QuickDrop</span><span>让设备之间，少一点距离。</span><a href="/about">作品展示 ↗</a></footer>
+</body></html>

@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { motion } from 'motion/react'
+import { LayoutGroup, motion } from 'motion/react'
 import { toast } from 'sonner'
 import { pushAbout, type AboutData, type Work } from './services/push-about'
 import { WorkCard } from './components/work-card'
@@ -24,7 +24,8 @@ function createWork(): Work {
 	}
 }
 
-export default function AboutClient({ initialData }: { initialData: AboutData }) {
+export default function AboutClient({ initialData, initialExpandedId = null }: { initialData: AboutData; initialExpandedId?: string | null }) {
+	const [expandedId, setExpandedId] = useState<string | null>(initialExpandedId)
 	const [data, setData] = useState<AboutData>(initialData)
 	const [originalData, setOriginalData] = useState<AboutData>(initialData)
 	const [imageItems, setImageItems] = useState<Map<string, ImageItem>>(new Map())
@@ -34,6 +35,17 @@ export default function AboutClient({ initialData }: { initialData: AboutData })
 	const { isAuth, setPrivateKey } = useAuthStore()
 	const { siteContent } = useConfigStore()
 	const hideEditButton = siteContent.hideEditButton ?? false
+	const toggleWork = (id: string) => {
+		setExpandedId(current => current === id ? null : id)
+		const url = new URL(window.location.href)
+		if (url.searchParams.has('work')) { url.searchParams.delete('work'); window.history.replaceState(null, '', url) }
+	}
+	useEffect(() => {
+		if (!expandedId || isEditMode) return
+		const closeOnEscape = (event: KeyboardEvent) => { if (event.key === 'Escape') setExpandedId(null) }
+		window.addEventListener('keydown', closeOnEscape)
+		return () => window.removeEventListener('keydown', closeOnEscape)
+	}, [expandedId, isEditMode])
 
 	const handleSaveClick = () => {
 		if (!isAuth) {
@@ -117,7 +129,7 @@ export default function AboutClient({ initialData }: { initialData: AboutData })
 			/>
 
 			<div className='flex flex-col items-center justify-center px-6 pt-32 pb-12 max-sm:px-0'>
-				<div className='w-full max-w-[800px]'>
+				<div className='w-full max-w-[1000px]'>
 					<motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className='mb-12 text-center'>
 						{isEditMode ? (
 							<div className='space-y-4'>
@@ -144,11 +156,13 @@ export default function AboutClient({ initialData }: { initialData: AboutData })
 						)}
 					</motion.div>
 
-					<div className='flex flex-col gap-10'>
-						{data.works.map(work => (
-							<WorkCard key={work.id} work={work} isEditMode={isEditMode} onUpdate={handleUpdateWork} onDelete={() => handleDeleteWork(work)} />
-						))}
-					</div>
+					<LayoutGroup id='about-works'>
+						<motion.div layout data-testid='works-grid' className={isEditMode ? 'flex flex-col gap-8' : expandedId ? 'grid grid-cols-1 gap-6' : 'grid grid-cols-1 items-stretch gap-6 md:grid-cols-2'}>
+							{data.works.filter(work => isEditMode || !expandedId || expandedId === work.id).map(work => (
+								<WorkCard key={work.id} work={work} isEditMode={isEditMode} expanded={expandedId === work.id} onToggle={() => toggleWork(work.id)} onUpdate={handleUpdateWork} onDelete={() => handleDeleteWork(work)} />
+							))}
+						</motion.div>
+					</LayoutGroup>
 
 					{data.works.length === 0 && !isEditMode && <div className='text-secondary text-center'>还没有作品</div>}
 

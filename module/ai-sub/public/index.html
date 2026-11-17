@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f5f6f2">
+  <meta name="description" content="AI-Sub 知识收集：持续收录 AI 产品更新与技术博客，按来源、主题和重要性筛选，收藏值得细读的内容。">
+  <title>AI-Sub · AI 知识收集</title>
+  <link rel="icon" href="./cover.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./style.css?v=1">
+  <script src="./app.js?v=1" defer></script>
+</head>
+<body>
+  <a class="skip" href="#feed">跳到内容</a>
+  <aside class="sidebar">
+    <a class="logo" href="/ai-sub/" aria-label="AI-Sub 首页"><span class="logo-mark">a<span>i</span></span><span>AI-Sub<small>知识收集 / KNOWLEDGE</small></span></a>
+    <div class="nav-label">我的阅读空间</div>
+    <nav class="main-nav" aria-label="内容类型">
+      <button class="nav-item active" data-view="all"><span class="nav-icon">▦</span>全部动态<span class="count" id="count-all">—</span></button>
+      <button class="nav-item" data-view="release"><span class="nav-icon">↗</span>产品更新<span class="count" id="count-release">—</span></button>
+      <button class="nav-item" data-view="blog"><span class="nav-icon">▤</span>技术博客<span class="count" id="count-blog">—</span></button>
+      <button class="nav-item" data-view="saved"><span class="nav-icon">☆</span>我的收藏<span class="count" id="count-saved">0</span></button>
+    </nav>
+    <div class="sidebar-note"><span class="status-dot"></span>持续收集，慢慢消化<p>把值得关注的 AI 更新，<br>留在一个安静的地方。</p></div>
+    <div class="sidebar-bottom"><p>收藏仅保存在当前浏览器。<br>导出 Markdown 可长期留存。</p><a href="/about">← 返回 Alen 的博客</a><span>POWERED BY AI-SUB</span></div>
+  </aside>
+  <div class="workspace">
+    <header class="topbar"><div class="breadcrumb">阅读空间 <span>/</span> <strong id="breadcrumb">全部动态</strong></div><div class="top-actions"><span class="update-time" id="updated">正在连接数据源</span><button id="refresh" class="icon-button" aria-label="刷新内容" title="刷新内容">↻</button></div></header>
+    <main id="main">
+      <section class="intro">
+        <div class="eyebrow"><span class="status-dot"></span> YOUR DAILY AI READING</div>
+        <div class="intro-line"><div><h1 id="view-title">AI 世界，<span>值得读的都在这里。</span></h1><p id="view-description">产品发布、模型进展、开发实践。收集信息，也留一点时间思考。</p></div><div class="date-stamp" id="date-stamp"></div></div>
+      </section>
+      <section class="stats" aria-label="收录概览"><div><span>已收录内容</span><strong id="stat-total">—</strong><small>AI 相关动态</small></div><div><span>近 24 小时</span><strong id="stat-today">—</strong><small>新收录内容</small></div><div><span>重点关注</span><strong id="stat-high">—</strong><small>高重要性内容</small></div><div><span>内容来源</span><strong id="stat-sources">—</strong><small>产品与技术博客</small></div></section>
+      <section class="controls" aria-label="搜索与筛选">
+        <div class="search-row"><label class="search"><span aria-hidden="true">⌕</span><input id="search" type="search" maxlength="200" placeholder="搜索标题、摘要、产品或来源…" aria-label="搜索内容"><kbd>/</kbd></label><button id="export" class="outline-button" title="将收藏内容导出为 Markdown">↓ 导出收藏</button></div>
+        <div class="filter-row"><div class="importance" role="group" aria-label="重要性"><button data-importance="all" class="selected">全部级别</button><button data-importance="high"><i class="priority high"></i>重点</button><button data-importance="medium"><i class="priority medium"></i>关注</button><button data-importance="low"><i class="priority low"></i>了解</button></div><div class="selects"><label><span class="sr-only">来源</span><select id="source"><option value="">所有来源</option></select></label><label><span class="sr-only">主题</span><select id="category"><option value="">所有主题</option></select></label><label><span class="sr-only">收录时间范围</span><select id="days"><option value="0">所有时间</option><option value="1">近 24 小时收录</option><option value="7">近 7 天收录</option><option value="30">近 30 天收录</option></select></label></div></div>
+      </section>
+      <section id="feed" tabindex="-1" aria-label="动态列表">
+        <div class="feed-heading"><h2 id="list-title">最新收录 <span id="result-count"></span></h2><label class="sort-label">排序 <select id="sort" aria-label="排序"><option value="newest">最近收录</option><option value="published">最近发布</option><option value="importance">重要性优先</option></select></label></div>
+        <div id="active-filters" class="active-filters" hidden><span id="filter-summary"></span><button id="clear">清除筛选 ×</button></div>
+        <div id="message" class="message" role="status" aria-live="polite">正在整理阅读列表…</div>
+        <div id="cards" class="cards" aria-busy="true"></div>
+        <div class="load-row"><button id="load-more" class="outline-button" hidden>加载更多</button><span id="list-end"></span></div>
+      </section>
+      <footer class="footer"><span><b>AI-Sub</b> · 信息有序，阅读从容。</span><span>摘要由 AI 整理，请以原文为准。原工具会定期清理旧记录。</span></footer>
+    </main>
+  </div>
+  <dialog id="detail" aria-labelledby="detail-title"><div class="detail-top"><span>READING NOTE / 内容速览</span><button id="close-detail" class="icon-button" aria-label="关闭详情">×</button></div><div id="detail-body"></div></dialog>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <noscript><p class="noscript">请启用 JavaScript 以搜索和阅读内容。<a href="/about">返回博客</a></p></noscript>
+</body>
+</html>

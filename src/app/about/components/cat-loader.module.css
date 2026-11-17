@@ -1,0 +1,11 @@
+.loading { width: 100%; padding: 20px 8px 12px; color: var(--color-brand, #31b9a6); }
+.label { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 43px; color: var(--color-secondary, #7d8c91); font-size: 12px; }
+.percent { font-variant-numeric: tabular-nums; color: var(--color-brand, #31b9a6); }
+.track { height: 6px; position: relative; border-radius: 99px; background: color-mix(in srgb, currentColor 12%, transparent); margin: 0 19px; }
+.fill { height: 100%; border-radius: inherit; background: currentColor; transition: width .16s linear; box-shadow: 0 0 14px color-mix(in srgb, currentColor 22%, transparent); }
+.runner { position: absolute; bottom: 2px; width: 46px; height: 43px; transform: translateX(-50%); transition: left .16s linear; }
+.cat { position: relative; z-index: 1; width: 46px; height: 43px; animation: catHop .65s ease-in-out infinite; transform-origin: 50% 100%; }
+.shadow { position: absolute; bottom: 0; left: 12px; width: 25px; height: 4px; border-radius: 50%; background: currentColor; opacity: .12; animation: catShadow .65s ease-in-out infinite; }
+@keyframes catHop { 0%, 100% { transform: translateY(0) rotate(-3deg) scaleY(.94); } 45% { transform: translateY(-12px) rotate(4deg) scaleY(1.03); } }
+@keyframes catShadow { 0%, 100% { transform: scaleX(1); opacity: .14; } 45% { transform: scaleX(.65); opacity: .07; } }
+@media (prefers-reduced-motion: reduce) { .cat, .shadow { animation: none; } .fill, .runner { transition: none; } }

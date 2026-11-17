@@ -16,3 +16,6 @@ build/
 
 # PDF 对照阅读器的构建产物，可由源码重新打包
 module/upload-PDF/site/
+
+# macOS metadata sidecars
+._*

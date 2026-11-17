@@ -1,0 +1,30 @@
+[Unit]
+Description=AI-Sub knowledge reader (read-only)
+After=network.target
+
+[Service]
+Type=simple
+DynamicUser=yes
+WorkingDirectory=/storage/blog/2025-blog-public/module/ai-sub
+ExecStart=/usr/bin/python3 -B server.py
+Environment=PYTHONUNBUFFERED=1
+Environment=PORT=3032
+Environment=AI_SUB_DB=/storage/Project/ai-sub/data/releases.db
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectKernelTunables=yes
+ProtectControlGroups=yes
+RestrictSUIDSGID=yes
+RestrictAddressFamilies=AF_INET AF_UNIX
+UMask=0077
+MemoryMax=192M
+TasksMax=32
+CPUQuota=50%
+
+[Install]
+WantedBy=multi-user.target
